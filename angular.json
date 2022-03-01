@@ -96,7 +96,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["./src/assets/jquery.js"]
           }
         }
       }

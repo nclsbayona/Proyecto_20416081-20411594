@@ -1,1 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+/* * {
+    margin: 0.01% !important;
+    font-size: 15px;
+    font-family: Karla, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+}*/
+
+.offer-container {
+    display: inline-block;
+    margin: 3% !important;
+    text-align: center;
+    background-color: blueviolet !important;
+    border-radius: 5%;
+    padding: 2%;
+}
+
+.new-container {
+    display: inline-block;
+    margin: 3% !important;
+    text-align: center;
+    background-color: rgb(226, 73, 188) !important;
+    border-radius: 5%;
+    padding: 2%;
+}
+
+.new-container .popup {
+    text-align: center;
+    background-color: rgb(224, 136, 202) !important;
+    border-radius: 5%;
+    padding: 2%;
+}
+
+.exclusive-container {
+    display: inline-block;
+    margin: 3% !important;
+    text-align: center;
+    background-color: rgb(28, 99, 206) !important;
+    border-radius: 5%;
+    padding: 2%;
+}
+.exclusive-container .popup {
+    text-align: center;
+    background-color: rgb(111, 139, 231) !important;
+    border-radius: 5%;
+    padding: 2%;
+}
+
+.offer-container .popup {
+    background: rgb(154, 93, 211) !important;
+    padding: 2%;
+    margin: 1% auto;
+    border-radius: 5%;
+}
+
+.popup h2{
+    color: aliceblue;
+    font-size: 10px !important;
+}
+
+.not-visible{
+    display:none
+}
