@@ -15,6 +15,7 @@ const routes: Routes=[
   declarations: [
     ProductoComponent,
     NavbarComponent,
+    SignInComponent,
     AppComponent,
     HomeComponent,
   ],
