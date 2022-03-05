@@ -5,6 +5,8 @@ export class User{
         this.email=email;
         this.password=password;
     }
+    strcmp (user: User):number{
+        return (( this.email > user.email ) ? 1 : (this.email < user.email ) ? -1 : 0 );}
     //Funcionalidades del usuario
 }
 
