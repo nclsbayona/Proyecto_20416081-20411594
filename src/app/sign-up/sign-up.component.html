@@ -1,15 +1,15 @@
 <div class="container">
-    <form class="form-floating">
+    <form class="form-floating" (ngSubmit)="checkPasswords()">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email</label>
             <input required type="email" placeholder="example@example.com" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input required type="password" class="form-control" id="exampleInputPassword1">
+            <input required type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password1">
+            <label for="exampleInputPassword2" class="form-label">Password confirmation</label>
+            <input required [(ngModel)]="password2" type="password" class="form-control" id="exampleInputPassword2">
         </div>
         <button type="submit" class="btn">Submit</button>
-        <br />
-        <a [routerLink]="['/sign-up']">Account creation</a>
     </form>
 </div>

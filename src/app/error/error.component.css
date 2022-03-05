@@ -1,0 +1,6 @@
+.content_center {
+    top:50%;
+    bottom: 50%;
+    justify-content: center;
+    align-items: center; 
+  }

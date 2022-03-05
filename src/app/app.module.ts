@@ -6,20 +6,28 @@ import { HomeComponent } from './home/home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { ProductoComponent } from './producto/producto.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { ErrorComponent } from './error/error.component';
+import { FormsModule } from '@angular/forms';
 const routes: Routes=[
   {path: '', component: HomeComponent},
   {path:'sign-in', component: SignInComponent},
-  { path: '**', redirectTo:'', pathMatch:'full'},
+  {path:'sign-up', component: SignUpComponent},
+  { path: '**', component: ErrorComponent},
 ];
 @NgModule({
   declarations: [
     ProductoComponent,
     NavbarComponent,
     SignInComponent,
+    SignUpComponent,
     AppComponent,
     HomeComponent,
+    SignUpComponent,
+    ErrorComponent,
   ],
   imports: [
+    FormsModule,
     RouterModule.forRoot(routes),
     BrowserModule,
   ],
