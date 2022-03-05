@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" [routerLink]="['']">Principal</a>
+                    <a class="nav-link" aria-current="page" [routerLink]="['']">Principal</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/sign-in']">Access</a>
@@ -17,7 +17,12 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a href="" class="nav-link disabled">Logout</a>
+                    <p class="nav-link user">
+                        <span>{{getUser()}}</span>
+                    </p>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Logout</a>
                 </li>
             </ul>
         </div>

@@ -24,12 +24,28 @@ export class AccountManagementService {
       but.addClass("btn-danger");
     }
   }
-  static findUser(email:String):User|null{
+  private static findUser(email:String):User|null{
     let u: User|null=null;
+    let start:number=0;
+    let end: number=this.users.length-1;
+    let mid:number=Math.floor((start+end)/2);
+    let a:User|null;
+    while (start<end && u==null){
+      a=this.users[mid];
+      if (a.email==email)
+        u=a;
+      else if (a.email>email)
+        start=mid+1;
+      else
+        end=mid-1;
+    }
     return u;
   }
 
-  static login(email:String, password:String):void{
-    
+  static login(email:String, password:String):User|null{
+    let u:User|null=this.findUser(email);
+    if (u?.password!=password)
+      u=null;
+    return u;
   }
 }
