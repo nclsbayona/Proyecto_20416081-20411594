@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/usuario/user.model';
-
+declare let $: any;
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -8,17 +8,28 @@ import { User } from '../models/usuario/user.model';
 })
 export class NavbarComponent implements OnInit {
 
-  private user: User|null=null;
-  constructor() { }
+  private static user: User|null=null;
+  constructor() {}
 
-  getUser(): String{
-    return (this.user==null)?"No user":this.user?.email;
+  static getUser(): String{
+    return (NavbarComponent.user==null)?"No user":NavbarComponent.user?.email;
   }
 
-  ngOnInit(): void {
+  getUser():String{
+    return NavbarComponent.getUser();
   }
 
-  changeUser(user:User): void{
-    this.user=user;
+  logout():void{
+    $("#logout").addClass("disabled");
+    NavbarComponent.user=null;
+  }
+
+  ngOnInit(): void {    
+  }
+
+  static changeUser(user:User): String{
+    NavbarComponent.user=user;
+    $("#logout").removeClass("disabled");
+    return NavbarComponent.getUser();
   }
 }

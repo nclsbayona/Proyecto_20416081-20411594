@@ -22,7 +22,7 @@
                     </p>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled">Logout</a>
+                    <a id="logout" [routerLink]="['/']" class="nav-link disabled" (click)="logout()">Logout</a>
                 </li>
             </ul>
         </div>
