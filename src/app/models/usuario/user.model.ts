@@ -11,8 +11,10 @@ export class User{
 }
 
 export class Admin extends User{
+    admin: boolean;
     constructor(email: String, password: String){
         super(email, password);
+        this.admin=true;
     }
     //Funcionalidades del admin
 }

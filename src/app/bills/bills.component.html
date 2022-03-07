@@ -1,1 +1,11 @@
-<p>bills works!</p>
+<div *ngIf="isAdmin(); then thenTemplateName else elseTemplateName">
+    
+</div>
+
+<ng-template #thenTemplateName>
+    isAdmin is true
+</ng-template>
+
+<ng-template #elseTemplateName>
+    isAdmin is false
+</ng-template>

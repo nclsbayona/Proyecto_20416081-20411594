@@ -23,6 +23,10 @@ export class NavbarComponent implements OnInit {
     $("#bills").addClass("disabled");
   }
 
+  isLogged(): boolean{
+    return (NavbarComponent.getCookie("username").length>0);
+  }
+
   static getCookie(name: String): String{
     let ret="";
     let cname = name + "=";

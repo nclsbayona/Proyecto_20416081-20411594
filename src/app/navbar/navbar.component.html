@@ -24,8 +24,8 @@
                         <span>{{getUser()}}</span>
                     </p>
                 </li>
-                <li class="nav-item">
-                    <a id="logout" [routerLink]="['/']" class="nav-link disabled" (click)="logout()">Logout</a>
+                <li class="nav-item" *ngIf="isLogged()">
+                    <a id="logout" [routerLink]="['/']" class="nav-link" (click)="logout()">Logout</a>
                 </li>
             </ul>
         </div>
