@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/usuario/user.model';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { AccountManagementService } from '../services/account/account-management.service';
 declare let $:any;
 @Component({
@@ -20,6 +18,6 @@ export class SignInComponent implements OnInit {
   login(): void{
     let email: String=$("#exampleInputEmail1").val()
     let pwd: String=$("#exampleInputPassword1").val()
-    let user: User|null=this.account_service.login(email, pwd);
+    console.log(this.account_service.login(email, pwd));
   }
 }

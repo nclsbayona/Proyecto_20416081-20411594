@@ -15,4 +15,7 @@ export class Producto{
             if (clas!="")
                 this.specials+=clas+'-'+id.toString()+" ";
     }
+    static Empty(){
+        return new Producto(0,"","","","");
+    }
 }

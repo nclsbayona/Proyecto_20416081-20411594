@@ -62,13 +62,18 @@ export class AccountManagementService {
       but.removeClass("btn-success");
       but.addClass("btn-danger");
     }
-    if (u!=null)
+    if (u!=null){
       console.log(NavbarComponent.changeUser(u));
+      $("#bills").removeClass("disabled");
+    }
     return u;
   }
 
-  static addNewUser(email: String, password: String, admin: boolean): boolean {
-    console.log("En añadir")
+  static addUser(email: String, password: String): boolean {
+    return this.addNewUser(email, password, false);
+  }
+
+  private static addNewUser(email: String, password: String, admin: boolean): boolean {
     if (!this.findUser(email)) {
       if (admin)
         AccountManagementService.users.push(new Admin(email, password));

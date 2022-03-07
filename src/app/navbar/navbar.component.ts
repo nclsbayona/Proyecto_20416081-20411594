@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
     NavbarComponent.createCookie("username", "");
     NavbarComponent.createCookie("password", "");
     $("#logout").addClass("disabled");
+    $("#bills").addClass("disabled");
   }
 
   static getCookie(name: String): String{

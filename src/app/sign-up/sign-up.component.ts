@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/usuario/user.model';
 import { AccountManagementService } from '../services/account/account-management.service';
 
 declare let $: any;
@@ -20,9 +19,10 @@ export class SignUpComponent implements OnInit {
   login(): void {
     let email: String = $("#exampleInputEmail1").val();
     if (this.account_service.checkPasswordsSame(this.password1!, this.password2!)) {
-      if (this.account_service.addNewUser(email, this.password1!, false)) {
-        let user: User | null = this.account_service.login(email, this.password1!);
-      }
+      if (this.account_service.addUser(email, this.password1!))
+        console.log(this.account_service.login(email, this.password1!));
+      else
+        console.log("User already exists");
     }
   }
 
