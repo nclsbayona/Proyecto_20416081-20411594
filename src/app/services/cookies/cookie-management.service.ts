@@ -27,4 +27,9 @@ export class CookieManagementService {
     let cookie = name+"="+data;
     document.cookie = cookie;
   }
+
+  static deleteCookie(name: String):void{
+    let cookie = name+"=;";
+    document.cookie = cookie;
+  }
 }

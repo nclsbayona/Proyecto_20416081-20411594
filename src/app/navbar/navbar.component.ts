@@ -17,18 +17,16 @@ export class NavbarComponent implements OnInit {
   }
 
   logout():void{
-    CookieManagementService.createCookie("user", "");
-    CookieManagementService.createCookie("username", "");
-    CookieManagementService.createCookie("password", "");
+    CookieManagementService.deleteCookie("user");
+    CookieManagementService.deleteCookie("username");
+    CookieManagementService.deleteCookie("password");
     $("#bills").addClass("disabled");
   }
 
   isLogged(): boolean{
     return (CookieManagementService.getCookie("username").length>0);
   }
-
   
-
   ngOnInit(): void {    
   }
 
