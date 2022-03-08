@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductosService } from './services/productos/productos.service';
+import { ProductsService } from './services/products/products.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,6 @@ import { ProductosService } from './services/productos/productos.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  products=new ProductosService();
+  products=new ProductsService();
   title = 'E-Commerce';
 }

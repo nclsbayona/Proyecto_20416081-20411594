@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductosService } from '../services/productos/productos.service';
+import { ProductsService } from '../services/products/products.service';
 declare let $: any;
 @Component({
   selector: 'app-home',
@@ -7,7 +7,7 @@ declare let $: any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  products = new ProductosService();
+  products = new ProductsService();
   constructor() {}
   ngOnInit(): void {
   }

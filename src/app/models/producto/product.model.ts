@@ -1,4 +1,4 @@
-export class Producto{
+export class Product{
     id: number;
     imageUrl: String;
     name: String;
@@ -16,6 +16,6 @@ export class Producto{
                 this.specials+=clas+'-'+id.toString()+" ";
     }
     static Empty(){
-        return new Producto(0,"","","","");
+        return new Product(0,"","","","");
     }
 }
