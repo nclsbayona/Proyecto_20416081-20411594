@@ -1,11 +1,11 @@
-<div *ngIf="isAdmin(); then thenTemplateName else elseTemplateName">
+<div *ngIf="isAdmin(); then thenTemplate else elseTemplate">
     
 </div>
 
-<ng-template #thenTemplateName>
+<ng-template #thenTemplate>
     isAdmin is true
 </ng-template>
 
-<ng-template #elseTemplateName>
+<ng-template #elseTemplate>
     isAdmin is false
 </ng-template>
