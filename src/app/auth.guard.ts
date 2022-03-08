@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CookieManagementService } from './services/cookies/cookie-management.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +10,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean{
     let ret:boolean=false;
-    let cname="username=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i < ca.length; i++){
-        let c = ca[i];
-        while(c.charAt(0) == ' '){
-            c = c.substring(1);
-        }
-        if(c.indexOf(cname) == 0){
-            if (c.substring(cname.length, c.length)!=""){
-                ret=true;
-            }
-        }
-    };
+    ret=CookieManagementService.getCookie("username")!.length>0?true:false;
     if (!ret)
       this.router.navigate(['/sign-in']);
     return ret;
