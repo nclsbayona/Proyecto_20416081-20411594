@@ -65,6 +65,7 @@ export class AccountManagementService {
     if (u!=null){
       console.log(NavbarComponent.changeUser(u));
       $("#bills").removeClass("disabled");
+      $("#cart").removeClass("disabled");
     }
     return u;
   }

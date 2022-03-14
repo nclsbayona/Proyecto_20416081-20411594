@@ -3,11 +3,11 @@ import { Product } from '../models/producto/product.model';
 
 declare let $: any
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.css']
 })
-export class ProductoComponent implements OnInit {
+export class ProductComponent implements OnInit {
   @Input()
   product: Product=Product.Empty();
   getImageUrl(): String {

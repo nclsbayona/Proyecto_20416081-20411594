@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
     CookieManagementService.deleteCookie("username");
     CookieManagementService.deleteCookie("password");
     $("#bills").addClass("disabled");
+    $("#cart").addClass("disabled");
   }
 
   isLogged(): boolean{
