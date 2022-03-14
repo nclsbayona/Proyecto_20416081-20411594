@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
-import { Admin, User } from '../../models/usuario/user.model';
+import { Admin, User } from '../../models/user/user.model';
 declare let $: any
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from '../models/producto/product.model';
+import { Product } from '../models/product/product.model';
 
 declare let $: any
 @Component({
@@ -10,6 +10,9 @@ declare let $: any
 export class ProductComponent implements OnInit {
   @Input()
   product: Product=Product.Empty();
+  getPrice(): String {
+    return "$"+this.product.price.toString();
+  }
   getImageUrl(): String {
     return this.product.imageUrl;
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/usuario/user.model';
+import { User } from '../models/user/user.model';
 import { CookieManagementService } from '../services/cookies/cookie-management.service';
 declare let $: any;
 @Component({

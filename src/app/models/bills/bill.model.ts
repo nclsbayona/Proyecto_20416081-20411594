@@ -1,4 +1,4 @@
-import { Product } from "../producto/product.model";
+import { Product } from "../product/product.model";
 
 export class Bill{
     elements: Bill_Element[] = [];

@@ -2,8 +2,6 @@
     width: 80%;
     height: 50%;
     object-fit: cover;
-    border-color: blanchedalmond;
-    border-style: dotted;
 }
 
 .container_product {
@@ -27,4 +25,10 @@
 .product_description {
     color: rgb(97, 94, 94);
     font-weight: 200;
+}
+
+.product_price {
+    margin: 3% !important;
+    font-size: large;
+    font-weight: 600;
 }
