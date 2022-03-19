@@ -59,6 +59,9 @@ export class ProductComponent implements OnInit {
         $('.exclusive-' + getID()).mouseleave(function () {
           $("." + getID()).addClass("not-visible");
         })
+        $('.cart' + getID()).on("click", function () {
+          console.log("Clicked on " + getID());
+        })
       })
   }
   ngOnInit(): void {
