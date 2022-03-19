@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Cart } from 'src/app/models/cart/cart.model';
 import { User } from 'src/app/models/user/user.model';
+import { BillManagementService } from '../bills/bill-management.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class CartManagementService {
     CartManagementService.carts.push(cart);
   }
 
-  static removeCartByOwner(owner:User):void{
+  private static removeCartByOwner(owner:User):void{
     for (let i=0; i<CartManagementService.carts.length; i++){
       let element=CartManagementService.carts[i];
       if(element.owner.email==owner.email){
@@ -24,6 +25,14 @@ export class CartManagementService {
         return;
       }
     }
+  }
+
+  static payCart(user:User):void{
+    let cart=this.getCartByOwner(user);
+    if (cart==null)
+      return;
+      BillManagementService.addBill(cart);
+    this.removeCartByOwner(user);
   }
 
   private static getCartByOwner(owner:User):Cart|null{

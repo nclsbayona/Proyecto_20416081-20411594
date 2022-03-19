@@ -8,12 +8,6 @@ export class Bill{
     date: Date;
     id: number;
 
-    /*constructor(id: number, date: Date, cart: Cart){
-        this.id=id;
-        this.cart=cart;
-        this.date=date;
-    }*/
-
     constructor(cart: Cart){
         this.cart=cart;
         this.date=new Date();
