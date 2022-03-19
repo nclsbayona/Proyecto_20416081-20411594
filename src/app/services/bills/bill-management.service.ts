@@ -4,6 +4,11 @@ import { Bill, Bill_Element } from '../../models/bills/bill.model';
   providedIn: 'root'
 })
 export class BillManagementService {
-  bills: Bill[] = [];
+  static getNextId(): number {
+      return BillManagementService.bills.length + 1;
+  }
+
+  static bills: Bill[] = [];
+
   constructor() { }
 }

@@ -1,17 +1,23 @@
+import { BillManagementService } from "src/app/services/bills/bill-management.service";
+import { Cart } from "../cart/cart.model";
 import { Product } from "../product/product.model";
 
 export class Bill{
-    elements: Bill_Element[] = [];
+
+    cart: Cart;
     date: Date;
     id: number;
 
-    constructor(id: number, date: Date){
+    /*constructor(id: number, date: Date, cart: Cart){
         this.id=id;
+        this.cart=cart;
         this.date=date;
-    }
+    }*/
 
-    addElement(element: Bill_Element){
-        this.elements.push(element);
+    constructor(cart: Cart){
+        this.cart=cart;
+        this.date=new Date();
+        this.id=BillManagementService.getNextId();
     }
 }
 

@@ -7,7 +7,7 @@ declare let $: any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  products = new ProductsService();
+  products =  ProductsService;
   constructor() {}
   ngOnInit(): void {
   }
