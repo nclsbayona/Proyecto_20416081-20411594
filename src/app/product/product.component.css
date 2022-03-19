@@ -5,7 +5,7 @@
 }
 
 .container_product {
-    padding: 1%;
+    padding: 3%;
     padding-top: 5% !important;
     border-color: white !important;
     border-style: dashed;
@@ -31,4 +31,22 @@
     margin: 3% !important;
     font-size: large;
     font-weight: 600;
+}
+
+.add-cart{
+    text-decoration: none;
+    padding: 2%;
+    margin: 3%;
+    margin-bottom: 4%;
+    width: 100%;
+    background-color: darkgrey;
+    transition: all 0.5s ease-in-out;
+    border-radius: 5%;
+    opacity: 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+.container_product:hover .add-cart{
+    opacity: 1;
 }
