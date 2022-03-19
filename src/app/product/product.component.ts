@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../models/product/product.model';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { CookieManagementService } from '../services/cookies/cookie-management.service';
 
 declare let $: any
 @Component({
@@ -8,8 +10,10 @@ declare let $: any
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  cookieManagementService: CookieManagementService=CookieManagementService;
   @Input()
   product: Product=Product.Empty();
+
   getPrice(): String {
     return "$"+this.product.price.toString();
   }
@@ -33,6 +37,15 @@ export class ProductComponent implements OnInit {
   constructor() {
     const getID = (): String =>
       this.product.id.toString();
+
+    const getUser=():String =>{
+      let ret:String=CookieManagementService.getCookie("username");
+      if (ret==null){
+        ret="";
+      }
+      return ret;
+    }
+    
     $(document).ready(
       () => {
         let popup_offer = "<div class='" + getID() + " not-visible offer-container text-center col-3'><div class='center-block popup text-center'><h2>Este producto esta en oferta</h2></div></div>";
@@ -60,7 +73,7 @@ export class ProductComponent implements OnInit {
           $("." + getID()).addClass("not-visible");
         })
         $('.cart' + getID()).on("click", function () {
-          console.log("Clicked on " + getID());
+          console.log("Add one unit of " + getID());
         })
       })
   }

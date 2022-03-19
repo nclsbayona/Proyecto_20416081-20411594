@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { Admin, User } from '../../models/user/user.model';
+import { CookieManagementService } from '../cookies/cookie-management.service';
 declare let $: any
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,10 @@ export class AccountManagementService {
       AccountManagementService.users.push(new Admin("abril@cano.com", "@bril123"));
       AccountManagementService.users.push(new User("n@bayona.com", "Hola_1"));
     }
+  }
+
+  static getCurrentUser(): User | null {
+    return this.findUser(CookieManagementService.getCookie("username"));
   }
 
   static printUsers():void{
