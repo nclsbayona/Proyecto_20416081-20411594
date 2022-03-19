@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cart } from 'src/app/models/cart/cart.model';
+import { Product } from 'src/app/models/product/product.model';
 import { User } from 'src/app/models/user/user.model';
 import { BillManagementService } from '../bills/bill-management.service';
 
@@ -11,6 +12,13 @@ export class CartManagementService {
   static carts:Cart[] = [];
 
   constructor() { 
+  }
+
+  static removeElementFromUserCart(user:User, element: Product, amount: number):void{
+    let cart=this.getCartByOwner(user);
+    if (cart==null)
+      return;
+    cart.removeElement(element, amount);
   }
 
   static addCart(cart:Cart):void{
