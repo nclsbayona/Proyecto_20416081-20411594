@@ -14,6 +14,10 @@ export class ProductComponent implements OnInit {
   @Input()
   product: Product=Product.Empty();
 
+  userLogged():boolean{
+    return CookieManagementService.getCookie("username").length>0;
+  }
+
   getPrice(): String {
     return "$"+this.product.price.toString();
   }
@@ -45,7 +49,7 @@ export class ProductComponent implements OnInit {
       }
       return ret;
     }
-    
+
     $(document).ready(
       () => {
         let popup_offer = "<div class='" + getID() + " not-visible offer-container text-center col-3'><div class='center-block popup text-center'><h2>Este producto esta en oferta</h2></div></div>";
