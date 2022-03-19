@@ -23,13 +23,13 @@ export class Cart{
         this.owner=owner;
     }
 
-    addElement(element: Bill_Element){
+    addElement(element: Product, amount: number){
         for (let i = 0; i < this.elements.length; i++) {
-            if(this.elements[i].product.id == element.product.id){
-                this.elements[i].total += element.total;
+            if(this.elements[i].product.id == element.id){
+                this.elements[i].total += amount;
                 return;
             }
         }
-        this.elements.push(element);
+        this.elements.push(new Bill_Element(amount, element));
     }
 }
