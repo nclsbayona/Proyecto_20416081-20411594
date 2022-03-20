@@ -12,8 +12,6 @@ import { CartManagementService } from '../services/cart/cart-management.service'
 export class CartComponent implements OnInit {
 
   cart: Cart|null=null;
-  constructor() {
-  }
 
   ngOnInit(): void {
   }
@@ -33,6 +31,7 @@ export class CartComponent implements OnInit {
 
   payCart(): void {
     CartManagementService.payCart(AccountManagementService.getCurrentUser()!);
+    this.removeCart();
     this.updateCart();
   }
 

@@ -34,8 +34,10 @@ export class CartManagementService {
     for (let i = 0; i < CartManagementService.carts.length; i++) {
       let element = CartManagementService.carts[i];
       if (element.owner.email == owner.email) {
+        console.log(CartManagementService.carts);
+        console.log("removing cart");
         CartManagementService.carts.splice(i, 1);
-        return;
+        console.log(CartManagementService.carts);
       }
     }
   }
@@ -53,6 +55,8 @@ export class CartManagementService {
     if (owner != null)
       for (let i = 0; i < CartManagementService.carts.length; i++) {
         let element = CartManagementService.carts[i];
+        console.log(element);
+        console.log(element.owner.email==owner.email);
         if (element.owner.email == owner.email) {
           cart = element;
         }
@@ -63,9 +67,10 @@ export class CartManagementService {
   static getSpecificUserCart(user: User): Cart {
     let cart: Cart | null = this.getCartByOwner(user);
     if (CookieManagementService.getCookie("user") != null) {
-      if (!cart)
+      if (cart==null){
         cart = new Cart(user);
-      CartManagementService.carts.push(cart);
+        CartManagementService.carts.push(cart);
+      }
     }
     return cart!;
   }

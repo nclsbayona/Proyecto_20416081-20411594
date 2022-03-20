@@ -17,7 +17,7 @@ export class AccountManagementService {
   }
 
   static getCurrentUser(): User | null {
-    return this.findUser(CookieManagementService.getCookie("username"));
+    return AccountManagementService.findUser(CookieManagementService.getCookie("username"));
   }
 
   static printUsers():void{
