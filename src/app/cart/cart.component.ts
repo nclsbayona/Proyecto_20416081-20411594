@@ -20,7 +20,6 @@ export class CartComponent implements OnInit {
 
   getCartElements(): Bill_Element[] {
     this.updateCart();
-    console.log(this.cart);
     return this.cart!.elements;
   }
 
