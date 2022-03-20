@@ -12,4 +12,13 @@ export class ProductsService {
     ProductsService.products.push(new Product(3, 19, "https://cdn.shopify.com/s/files/1/0537/9483/2552/products/Nodejs_360x.png?v=1614388512", "NO", "Falta la descripcion", "exclusive new"));
     ProductsService.products.push(new Product(4, 18.2, "https://cdn.shopify.com/s/files/1/0537/9483/2552/products/AWS_M2_3b05ab76-7294-4974-9d97-77c35d96efa5_480x.jpg?v=1615480109", "NO", "Falta la descripcion", "exclusive"));
   }
+  static getProductById(idS: string): Product {
+    let id=parseInt(idS);
+    for (let product of ProductsService.products) {
+      if (product.id == id) {
+        return product;
+      }
+    }
+    return Product.Empty();
+  }
 }

@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { BillsComponent } from './bills/bills.component';
 import { AuthGuard } from './auth.guard';
 import { CartComponent } from './cart/cart.component';
+import { CartElementComponent } from './cart-element/cart-element.component';
 const routes: Routes=[
   {path: '', component: HomeComponent},
   {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
@@ -31,7 +32,8 @@ const routes: Routes=[
     SignUpComponent,
     ErrorComponent,
     BillsComponent,
-    CartComponent
+    CartComponent,
+    CartElementComponent
   ],
   imports: [
     FormsModule,

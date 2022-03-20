@@ -22,4 +22,7 @@ export class Bill_Element{
         this.total=total;
         this.product=product;
     }
+    static Empty(): Bill_Element{
+        return new Bill_Element(0, Product.Empty());
+    }
 }

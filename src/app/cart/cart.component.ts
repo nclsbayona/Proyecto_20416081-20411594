@@ -13,17 +13,15 @@ export class CartComponent implements OnInit {
 
   cart: Cart|null=null;
   constructor() {
-    setInterval(() =>{
-      this.updateCart();
-    }, 1000);
   }
 
   ngOnInit(): void {
   }
 
   getCartElements(): Bill_Element[] {
-    let elements=this.cart!.elements;
-    return elements;
+    this.updateCart();
+    console.log(this.cart);
+    return this.cart!.elements;
   }
 
   removeCart(): void {

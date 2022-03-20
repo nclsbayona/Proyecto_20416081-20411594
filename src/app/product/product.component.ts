@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../models/product/product.model';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { ProductsService } from '../services/products/products.service';
+import { AccountManagementService } from '../services/account/account-management.service';
+import { CartManagementService } from '../services/cart/cart-management.service';
 import { CookieManagementService } from '../services/cookies/cookie-management.service';
 
 declare let $: any
@@ -39,16 +41,8 @@ export class ProductComponent implements OnInit {
   }
 
   constructor() {
-    const getID = (): String =>
+    const getID = (): string =>
       this.product.id.toString();
-
-    const getUser=():String =>{
-      let ret:String=CookieManagementService.getCookie("username");
-      if (ret==null){
-        ret="";
-      }
-      return ret;
-    }
 
     $(document).ready(
       () => {
@@ -77,7 +71,7 @@ export class ProductComponent implements OnInit {
           $("." + getID()).addClass("not-visible");
         })
         $('.cart' + getID()).on("click", function () {
-          console.log("Add one unit of " + getID());
+          CartManagementService.addToCart(ProductsService.getProductById(getID()), 1, AccountManagementService.getCurrentUser()!);
         })
       })
   }

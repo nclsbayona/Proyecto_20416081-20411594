@@ -1,1 +1,5 @@
-<p>cart works!</p>
+<div class="container-fluid">
+    <div class="row" *ngFor="let element of getCartElements()">
+        <app-cart-element [element]="element"></app-cart-element>
+    </div>
+</div>
