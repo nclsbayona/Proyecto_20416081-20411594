@@ -71,6 +71,7 @@ export class ProductComponent implements OnInit {
           $("." + getID()).addClass("not-visible");
         })
         $('.cart' + getID()).on("click", function () {
+          console.log("Clicked on add to cart "+getID());
           CartManagementService.addToCart(ProductsService.getProductById(getID()), 1, AccountManagementService.getCurrentUser()!);
         })
       })

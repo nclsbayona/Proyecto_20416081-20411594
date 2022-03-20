@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccountManagementService } from './services/account/account-management.service';
 import { ProductsService } from './services/products/products.service';
 
 @Component({
@@ -7,6 +8,13 @@ import { ProductsService } from './services/products/products.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  products=new ProductsService();
+  products=ProductsService;
+  accounts=AccountManagementService;
+
+  constructor() {
+    this.products.poblate();
+    this.accounts.poblate();
+  }
+
   title = 'E-Commerce';
 }

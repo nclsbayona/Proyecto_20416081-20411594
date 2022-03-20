@@ -10,7 +10,8 @@ import { CookieManagementService } from '../cookies/cookie-management.service';
 })
 export class CartManagementService {
   static addToCart(product: Product, amount: number, user: User) {
-    CartManagementService.getCartByOwner(user)!.addElement(product, amount);
+    let cart: Cart = CartManagementService.getSpecificUserCart(user);
+    cart.addElement(product, amount)
   }
 
   static carts: Cart[] = [];
@@ -49,22 +50,23 @@ export class CartManagementService {
 
   private static getCartByOwner(owner: User): Cart | null {
     let cart: Cart | null = null;
+    if (owner != null)
       for (let i = 0; i < CartManagementService.carts.length; i++) {
         let element = CartManagementService.carts[i];
         if (element.owner.email == owner.email) {
           cart = element;
         }
-    }
+      }
     return cart;
   }
 
-  static getSpecificUserCart(user: User): Cart|null {
+  static getSpecificUserCart(user: User): Cart {
     let cart: Cart | null = this.getCartByOwner(user);
-    if (CookieManagementService.getCookie("user") != null){
-    if (!cart)
-      cart = new Cart(user);
-    CartManagementService.carts.push(cart);
+    if (CookieManagementService.getCookie("user") != null) {
+      if (!cart)
+        cart = new Cart(user);
+      CartManagementService.carts.push(cart);
     }
-    return cart;
+    return cart!;
   }
 }
