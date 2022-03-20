@@ -2,9 +2,9 @@
     <div class="d-flex center-block">
         <img class="card-img-top img-rounded" src="{{element.product.imageUrl}}" alt="{{element.product.name}} image">
         <div class="card-body h-100">
-            <h4 class="title">{{element.product.name}}</h4>
-            <p class="text">${{element.product.price*element.total}}</p>
-            <p class="text">{{element.total}}</p>
+            <h5 class="title">Nombre: {{element.product.name}}</h5>
+            <p class="text">Precio total: ${{element.product.price*element.total}}</p>
+            <p class="text">Cantidad: {{element.total}}</p>
         </div>
     </div>
 </div>

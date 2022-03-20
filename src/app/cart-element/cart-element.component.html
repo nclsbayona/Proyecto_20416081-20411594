@@ -2,11 +2,17 @@
     <div class="d-flex center-block">
         <img class="card-img-top img-rounded" src="{{element.product.imageUrl}}" alt="{{element.product.name}} image">
         <div class="card-body h-100">
-            <h4 class="title">{{element.product.name}}</h4>
-            <p class="text">${{element.product.price*element.total}}</p>
-            <p class="text">{{element.total}}</p>
-            <button class="btn btn-primary" (click)="removeFromCart()">Remove One</button>
-            <button class="btn btn-primary" (click)="addToCart()">Add One</button>
+            <h5 class="title">Nombre: {{element.product.name}}</h5>
+            <p class="text">Precio total: ${{element.product.price*element.total}}</p>
+            <p class="text">Cantidad: {{element.total}}</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-primary" (click)="removeFromCart()"> - </button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" (click)="addToCart()"> + </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
