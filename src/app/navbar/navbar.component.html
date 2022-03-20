@@ -1,8 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark site-header sticky-top py-1 bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark site-header sticky-top fixed-top bg-dark">
     <div class="container-fluid">
         <div class="navbar-brand">
             <img src="favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top" /> Nombre
         </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -17,13 +21,15 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a id="User" class="nav-link active user"><span class="nav-link active user">{{getUser()}}</span></a>
+                    <a id="User" class="nav-link active user"><span
+                            class="nav-link active user">{{getUser()}}</span></a>
                 </li>
             </ul>
             <div class="col-md-2 text-end">
                 <button type="button" [routerLink]="['/sign-in']" class="btn btn-outline-primary me-2">Login</button>
-                <button type="button" *ngIf="isLogged()" [routerLink]="['/']"class="btn btn-primary" (click)="logout()">Logout</button>
-              </div>
+                <button type="button" *ngIf="isLogged()" [routerLink]="['/']" class="btn btn-primary"
+                    (click)="logout()">Logout</button>
+            </div>
         </div>
     </div>
 </nav>

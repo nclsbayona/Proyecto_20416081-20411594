@@ -1,4 +1,7 @@
 <div class="container">
+    <p class="display-6 fw-bold">
+        ¡Bienvenido!<br /> Inicia sesion para ver tu carrito y tus facutras
+    </p>
     <form class="form-floating" (ngSubmit)="login()">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -9,7 +12,13 @@
             <input required type="password" class="form-control" id="exampleInputPassword1">
         </div>
         <button type="submit" class="btn">Submit</button>
-        <br />
-        <a [routerLink]="['/sign-up']">Account creation</a>
+        <br/>
+        <br/>
+        <br/>
+        <p class = "display-7">
+            ¿No tienes una cuenta todavía? Registrate
+        </p>
+        <button type="button" class="btn btn-primary" [routerLink]="['/sign-up']">Registrate</button>
+        <!-- <a [routerLink]="['/sign-up']">Account creation</a> -->
     </form>
 </div>
