@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Bill } from '../models/bills/bill.model';
 
 @Component({
   selector: 'app-bill-specific',
@@ -7,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BillSpecificComponent implements OnInit {
 
+  @Input()
+  bill: Bill=Bill.Empty();
+  
   constructor() { }
 
   ngOnInit(): void {

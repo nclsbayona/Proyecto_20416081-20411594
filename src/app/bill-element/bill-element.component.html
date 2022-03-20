@@ -1,1 +1,10 @@
-<p>bill-element works!</p>
+<div class="element" id="{{element.product.id}}">
+    <div class="d-flex center-block">
+        <img class="card-img-top img-rounded" src="{{element.product.imageUrl}}" alt="{{element.product.name}} image">
+        <div class="card-body h-100">
+            <h4 class="title">{{element.product.name}}</h4>
+            <p class="text">${{element.product.price*element.total}}</p>
+            <p class="text">{{element.total}}</p>
+        </div>
+    </div>
+</div>
