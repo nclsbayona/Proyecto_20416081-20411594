@@ -3,6 +3,13 @@ import { Product } from "../product/product.model";
 import { User } from "../user/user.model";
 
 export class Cart{
+    getTotal(): number {
+      let t=0;
+      for (let element of this.elements)
+        t+=element.total*element.product.price;
+      return t;
+    }
+
     removeElement(element: Product, amount: number) {
       for (let i=0; i<this.elements.length; i++){
         let billElement=this.elements[i];

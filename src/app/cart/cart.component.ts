@@ -36,4 +36,8 @@ export class CartComponent implements OnInit {
     this.updateCart();
   }
 
+  getTotal(): number {
+    return this.cart!.getTotal();
+  }
+
 }

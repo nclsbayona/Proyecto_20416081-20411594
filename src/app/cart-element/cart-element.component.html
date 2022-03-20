@@ -1,13 +1,12 @@
-<div class="row">
-    <div id="{{element.product.id}}" class="col-md-4 col-sm-6 col-xs-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">{{element.product.name}}</h4>
-                <p class="card-text">{{element.product.description}}</p>
-                <p class="card-text">{{element.product.price}}</p>
-                <p class="card-text">{{element.total}}</p>
-                <button class="btn btn-primary" (click)="removeFromCart()">Remove One</button>
-                <button class="btn btn-primary" (click)="addToCart()">Add One</button>
-            </div>
+<div class="element" id="{{element.product.id}}">
+    <div class="d-flex center-block">
+        <img class="card-img-top img-rounded" src="{{element.product.imageUrl}}" alt="{{element.product.name}} image">
+        <div class="card-body h-100">
+            <h4 class="title">{{element.product.name}}</h4>
+            <p class="text">${{element.product.price*element.total}}</p>
+            <p class="text">{{element.total}}</p>
+            <button class="btn btn-primary" (click)="removeFromCart()">Remove One</button>
+            <button class="btn btn-primary" (click)="addToCart()">Add One</button>
         </div>
+    </div>
 </div>
