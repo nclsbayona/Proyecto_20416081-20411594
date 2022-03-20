@@ -9,14 +9,22 @@ declare let $: any;
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() {}
-
-  getUser():String{
-    let ret=CookieManagementService.getCookie("username");
-    return (ret.length>0)?ret:"No user";
+  constructor() {
+    if (CookieManagementService.getCookie("username").length > 0) {
+      console.log("User logged");
+      $(document).ready(function () {
+        $("#bills").removeClass("disabled");
+        $("#cart").removeClass("disabled");
+      });
+    }
   }
 
-  logout():void{
+  getUser(): String {
+    let ret = CookieManagementService.getCookie("username");
+    return (ret.length > 0) ? ret : "No user";
+  }
+
+  logout(): void {
     CookieManagementService.deleteCookie("user");
     CookieManagementService.deleteCookie("username");
     CookieManagementService.deleteCookie("password");
@@ -24,14 +32,14 @@ export class NavbarComponent implements OnInit {
     $("#cart").addClass("disabled");
   }
 
-  isLogged(): boolean{
-    return (CookieManagementService.getCookie("username").length>0);
-  }
-  
-  ngOnInit(): void {    
+  isLogged(): boolean {
+    return (CookieManagementService.getCookie("username").length > 0);
   }
 
-  static changeUser(user:User): String{
+  ngOnInit(): void {
+  }
+
+  static changeUser(user: User): String {
     CookieManagementService.createCookie("user", JSON.stringify(user));
     CookieManagementService.createCookie("username", user.email);
     CookieManagementService.createCookie("password", user.password);

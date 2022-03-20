@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Bill_Element } from '../models/bills/bill.model';
 import { Cart } from '../models/cart/cart.model';
-import { Product } from '../models/product/product.model';
 import { AccountManagementService } from '../services/account/account-management.service';
 import { CartManagementService } from '../services/cart/cart-management.service';
 
@@ -12,14 +12,18 @@ import { CartManagementService } from '../services/cart/cart-management.service'
 export class CartComponent implements OnInit {
 
   cart: Cart|null=null;
-  constructor() { }
-
-  addToCart(product: Product): void {
-    CartManagementService.addToCart(product, 1, AccountManagementService.getCurrentUser()!);
-    this.updateCart();
+  constructor() {
+    setInterval(() =>{
+      this.updateCart();
+    }, 1000);
   }
 
   ngOnInit(): void {
+  }
+
+  getCartElements(): Bill_Element[] {
+    let elements=this.cart!.elements;
+    return elements;
   }
 
   removeCart(): void {
@@ -28,6 +32,11 @@ export class CartComponent implements OnInit {
 
   updateCart(): void {
     this.cart=CartManagementService.getSpecificUserCart(AccountManagementService.getCurrentUser()!);
+  }
+
+  payCart(): void {
+    CartManagementService.payCart(AccountManagementService.getCurrentUser()!);
+    this.updateCart();
   }
 
 }
