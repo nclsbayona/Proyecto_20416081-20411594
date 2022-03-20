@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Bill } from '../models/bills/bill.model';
 import { BillManagementService } from '../services/bills/bill-management.service';
 
 @Component({
@@ -8,6 +9,15 @@ import { BillManagementService } from '../services/bills/bill-management.service
 })
 export class BillsComponent implements OnInit {
   bill_management = BillManagementService;
+
+  getAdminBills(): Bill[]{
+    return this.bill_management.getAllBills();
+  }
+
+  getUserBills():Bill[]{
+    return this.bill_management.getUserBills();
+  }
+
   constructor() { }
 
   ngOnInit(): void {
