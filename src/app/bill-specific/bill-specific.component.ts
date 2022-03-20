@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Bill } from '../models/bills/bill.model';
+import { Bill, Bill_Element } from '../models/bills/bill.model';
 
 @Component({
   selector: 'app-bill-specific',
@@ -16,4 +16,7 @@ export class BillSpecificComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getElements(): Bill_Element[] {
+    return this.bill.cart.elements;
+  }
 }
