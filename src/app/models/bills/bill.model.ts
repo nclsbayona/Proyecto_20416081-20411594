@@ -13,6 +13,10 @@ export class Bill{
         this.date=new Date();
         this.id=BillManagementService.getNextId();
     }
+
+    static Empty(): Bill{
+        return new Bill(Cart.Empty());
+    }
 }
 
 export class Bill_Element{

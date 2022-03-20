@@ -3,6 +3,10 @@ import { Product } from "../product/product.model";
 import { User } from "../user/user.model";
 
 export class Cart{
+    static Empty(): Cart{
+      return new Cart(User.Empty());
+    }
+    
     getTotal(): number {
       let t=0;
       for (let element of this.elements)

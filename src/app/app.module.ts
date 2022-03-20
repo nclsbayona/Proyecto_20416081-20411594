@@ -14,6 +14,7 @@ import { AuthGuard } from './auth.guard';
 import { CartComponent } from './cart/cart.component';
 import { CartElementComponent } from './cart-element/cart-element.component';
 import { BillElementComponent } from './bill-element/bill-element.component';
+import { BillSpecificComponent } from './bill-specific/bill-specific.component';
 const routes: Routes=[
   {path: '', component: HomeComponent},
   {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
@@ -35,7 +36,8 @@ const routes: Routes=[
     BillsComponent,
     CartComponent,
     CartElementComponent,
-    BillElementComponent
+    BillElementComponent,
+    BillSpecificComponent
   ],
   imports: [
     FormsModule,

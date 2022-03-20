@@ -1,4 +1,8 @@
 export class User{
+    static Empty(): User {
+      return new User("", "");
+    }
+    
     email: String;
     password: String;
     constructor(email: String, password: String){
