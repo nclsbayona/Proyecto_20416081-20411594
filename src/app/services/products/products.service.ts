@@ -14,6 +14,11 @@ export class ProductsService {
     ProductsService.products.push(new Product(4, 18.2, "https://cdn.shopify.com/s/files/1/0537/9483/2552/products/AWS_M2_3b05ab76-7294-4974-9d97-77c35d96efa5_480x.jpg?v=1615480109", "NOMBRE4", "Falta la descripcion", "exclusive"));
   }
 
+  static insertProduct(id: number, price: number, image: String, nombre: String, descripcion: String, specials: String): Boolean{
+    ProductsService.products.push(new Product(id, price, image, nombre, descripcion, specials));
+    return true;
+  }
+
   static getProductById(idS: string): Product {
     let id=parseInt(idS);
     for (let product of ProductsService.products) {

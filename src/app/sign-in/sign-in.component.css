@@ -8,6 +8,11 @@
 .color{
     border-color: blue;
 }
+.containerf {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
 
 input[type=email], select, textarea {
     width: 100%; /* Full width */
