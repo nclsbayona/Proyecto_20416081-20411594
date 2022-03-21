@@ -4,7 +4,6 @@ import { ProductsService } from '../services/products/products.service';
 import { AccountManagementService } from '../services/account/account-management.service';
 import { CartManagementService } from '../services/cart/cart-management.service';
 import { CookieManagementService } from '../services/cookies/cookie-management.service';
-import { Router } from '@angular/router';
 
 declare let $: any
 @Component({
