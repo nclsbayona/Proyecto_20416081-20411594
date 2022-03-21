@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/product/product.model';
-import { AccountManagementService } from '../services/account/account-management.service';
 import { CookieManagementService } from '../services/cookies/cookie-management.service';
 import { ProductsService } from '../services/products/products.service';
 declare let $: any;
