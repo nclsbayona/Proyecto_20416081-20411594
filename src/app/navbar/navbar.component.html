@@ -27,8 +27,7 @@
             </ul>
             <div class="col-md-2 text-end">
                 <button type="button" [routerLink]="['/sign-in']" class="btn btn-outline-primary me-2">Login</button>
-                <button type="button" *ngIf="isLogged()" [routerLink]="['/']" class="btn btn-primary"
-                    (click)="logout()">Logout</button>
+                <button type="button" *ngIf="isLogged()" [routerLink]="['/']" class="btn btn-primary" (click)="logout()">Logout</button>
             </div>
         </div>
     </div>
