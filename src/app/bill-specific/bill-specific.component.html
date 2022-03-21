@@ -1,4 +1,5 @@
 <div class="container">
+    <h3>ID: {{bill.id}} - Date: {{bill.date}}</h3>
     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let element of getElements()">
         <app-bill-element [element]="element"></app-bill-element>
     </div>
