@@ -5,6 +5,16 @@ import { Product } from '../../models/product/product.model';
   providedIn: 'root'
 })
 export class ProductsService {
+  static remove(p: Product) {
+    console.log(this.products);
+    for (let product of ProductsService.products) {
+      if (product.id == p.id) {
+        ProductsService.products.splice(ProductsService.products.indexOf(product), 1);
+        return;
+      }
+    }
+  }
+
   static products: Product[] = [];
 
   static poblate(){

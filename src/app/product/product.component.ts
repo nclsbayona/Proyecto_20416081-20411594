@@ -12,16 +12,33 @@ declare let $: any
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  cookieManagementService: CookieManagementService=CookieManagementService;
+  cookieManagementService: CookieManagementService = CookieManagementService;
   @Input()
-  product: Product=Product.Empty();
+  product: Product = Product.Empty();
 
-  userLogged():boolean{
-    return CookieManagementService.getCookie("username").length>0;
+  userLogged(): boolean {
+    return CookieManagementService.getCookie("username").length > 0;
+  }
+
+  isAdmin(): boolean {
+    let ret = false;
+    let cname = "user=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length && !ret; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(cname) == 0) {
+        ret = JSON.parse(c.substring(cname.length, c.length)).admin ? true : false;
+      }
+    }
+    return ret;
   }
 
   getPrice(): String {
-    return "$"+this.product.price.toString();
+    return "$" + this.product.price.toString();
   }
   getImageUrl(): String {
     return this.product.imageUrl;
@@ -34,7 +51,7 @@ export class ProductComponent implements OnInit {
   getDescription(): String {
     return this.product.description;
   }
-  
+
   getSpecials(): String {
     console.log(this.product.specials)
     return this.product.specials;
@@ -71,8 +88,12 @@ export class ProductComponent implements OnInit {
           $("." + getID()).addClass("not-visible");
         })
         $('.cart' + getID()).on("click", function () {
-          console.log("Clicked on add to cart "+getID());
+          console.log("Clicked on add to cart " + getID());
           CartManagementService.addToCart(ProductsService.getProductById(getID()), 1, AccountManagementService.getCurrentUser()!);
+        })
+        $('.remove' + getID()).on("click", function () {
+          console.log("Clicked on remove " + getID());
+          ProductsService.remove(ProductsService.getProductById(getID()));
         })
       })
   }

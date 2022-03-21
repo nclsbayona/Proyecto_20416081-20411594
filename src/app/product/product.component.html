@@ -11,5 +11,15 @@
             <b>{{getPrice()}}</b>
         </p>
     </div>
-    <a *ngIf="userLogged()" class="add-cart cart{{product.id}}" href="#">Add to cart</a>
-</div>
+    <div *ngIf="userLogged()">
+        <div *ngIf="isAdmin(); then thenTemplate else elseTemplate">
+        </div>
+    </div>
+    
+    <ng-template #thenTemplate>
+        <a class="remove remove{{product.id}}" href="#">Remove</a>
+    </ng-template>
+    
+    <ng-template #elseTemplate>
+        <a class="add-cart cart{{product.id}}" href="#">Add to cart</a>
+    </ng-template>
