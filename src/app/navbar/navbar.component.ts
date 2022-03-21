@@ -11,7 +11,6 @@ export class NavbarComponent implements OnInit {
 
   constructor() {
     if (CookieManagementService.getCookie("username").length > 0) {
-      console.log("User logged");
       $(document).ready(function () {
         $("#bills").removeClass("disabled");
         $("#cart").removeClass("disabled");

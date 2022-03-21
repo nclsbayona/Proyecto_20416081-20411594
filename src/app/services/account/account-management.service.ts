@@ -20,10 +20,6 @@ export class AccountManagementService {
     return AccountManagementService.findUser(CookieManagementService.getCookie("username"));
   }
 
-  static printUsers():void{
-    console.log(this.users)
-  }
-
   static orderUsers(): void {
     AccountManagementService.users.sort((a, b) => a.strcmp(b));
   }
@@ -36,7 +32,6 @@ export class AccountManagementService {
   }
 
   private static findUser(email: String): User | null {
-    this.printUsers()
     let u: User | null = null;
     let start: number = 0;
     let end: number = this.users.length - 1;
@@ -69,7 +64,7 @@ export class AccountManagementService {
       but.addClass("btn-danger");
     }
     if (u!=null){
-      console.log(NavbarComponent.changeUser(u));
+      NavbarComponent.changeUser(u);
       $("#bills").removeClass("disabled");
       $("#cart").removeClass("disabled");
     }

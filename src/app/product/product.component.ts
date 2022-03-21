@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../models/product/product.model';
 import { ProductsService } from '../services/products/products.service';
 import { AccountManagementService } from '../services/account/account-management.service';
 import { CartManagementService } from '../services/cart/cart-management.service';
 import { CookieManagementService } from '../services/cookies/cookie-management.service';
+import { Router } from '@angular/router';
 
 declare let $: any
 @Component({
@@ -15,7 +16,7 @@ export class ProductComponent implements OnInit {
   cookieManagementService: CookieManagementService = CookieManagementService;
   @Input()
   product: Product = Product.Empty();
-
+  
   userLogged(): boolean {
     return CookieManagementService.getCookie("username").length > 0;
   }
@@ -53,7 +54,6 @@ export class ProductComponent implements OnInit {
   }
 
   getSpecials(): String {
-    console.log(this.product.specials)
     return this.product.specials;
   }
 
@@ -88,12 +88,11 @@ export class ProductComponent implements OnInit {
           $("." + getID()).addClass("not-visible");
         })
         $('.cart' + getID()).on("click", function () {
-          console.log("Clicked on add to cart " + getID());
           CartManagementService.addToCart(ProductsService.getProductById(getID()), 1, AccountManagementService.getCurrentUser()!);
         })
         $('.remove' + getID()).on("click", function () {
           console.log("Clicked on remove " + getID());
-          ProductsService.remove(ProductsService.getProductById(getID()));
+          ProductsService.remove(getID());
         })
       })
   }

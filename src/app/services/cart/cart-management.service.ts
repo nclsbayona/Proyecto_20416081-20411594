@@ -34,10 +34,7 @@ export class CartManagementService {
     for (let i = 0; i < CartManagementService.carts.length; i++) {
       let element = CartManagementService.carts[i];
       if (element.owner.email == owner.email) {
-        console.log(CartManagementService.carts);
-        console.log("removing cart");
         CartManagementService.carts.splice(i, 1);
-        console.log(CartManagementService.carts);
       }
     }
   }
@@ -55,8 +52,6 @@ export class CartManagementService {
     if (owner != null)
       for (let i = 0; i < CartManagementService.carts.length; i++) {
         let element = CartManagementService.carts[i];
-        console.log(element);
-        console.log(element.owner.email==owner.email);
         if (element.owner.email == owner.email) {
           cart = element;
         }

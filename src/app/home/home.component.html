@@ -2,11 +2,7 @@
     <div class="px-4 py-5 my-5 text-center">
         <h1 class="display-5 fw-bold">NOMBRE</h1>
         <div class="col-lg-10 mx-auto">
-            <p class="lead mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, iusto? Quaerat nihil
-                soluta
-                voluptatum quod voluptatibus sunt aperiam assumenda totam. Ipsam odio sapiente praesentium dolorem
-                reiciendis
-                ipsum rerum quis modi
+            <p class="lead mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, iusto? Quaerat nihil soluta voluptatum quod voluptatibus sunt aperiam assumenda totam. Ipsam odio sapiente praesentium dolorem reiciendis ipsum rerum quis modi
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let product of getProducts()">
@@ -16,43 +12,43 @@
     </div>
 
     <div *ngIf="isAdmin()" class="containerf">
-            <h4>Insertar Producto</h4>
-            <form class="form-floating" (ngSubmit)="Create()">
+        <h4>Insertar Producto</h4>
+        <form class="form-floating" (ngSubmit)="Create()">
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <label for="id">ID</label>
-                        <input type="text" id="id" name="ID" placeholder="" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="Nombre" placeholder="" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="precio">Precio</label>
-                        <input type="text" id="precio" name="Precio" placeholder="" value="" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="especiales">Especiales</label>
-                        <input type="text" id="especiales" name="Especiales" placeholder="" value="" required>
-                    </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="id">ID</label>
+                    <input type="text" id="id" name="ID" placeholder="" required>
                 </div>
-                <br/>
-                <br/>
-                <div class="row">
-                    <div class="col-md-6"> 
-                        <label for="descripcion">Descripción</label>
-                        <textarea id="descripcion" name="Descripcion" placeholder="" style="height:50px"></textarea>
-                    </div>
-                    <div class="col-md-6"> 
-                        <label for="img">URL Imagen</label>
-                        <textarea id="img" name="Img" placeholder="" style="height:50px"></textarea>
-                    </div>
-    
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                    </div>
+                <div class="col-md-3">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="Nombre" placeholder="" required>
                 </div>
-                
-            </form>
-</div>
+                <div class="col-md-3">
+                    <label for="precio">Precio</label>
+                    <input type="text" id="precio" name="Precio" placeholder="" value="" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="especiales">Especiales</label>
+                    <input type="text" id="especiales" name="Especiales" placeholder="" value="" required>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" name="Descripcion" placeholder="" style="height:50px"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label for="img">URL Imagen</label>
+                    <textarea id="img" name="Img" placeholder="" style="height:50px"></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>

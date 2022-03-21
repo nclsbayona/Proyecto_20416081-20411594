@@ -15,7 +15,8 @@ export class HomeComponent implements OnInit {
   }
 
   getProducts(): Product[] {
-    console.log(this.products.products);
+    console.log("getProducts")
+    console.log(this.products.products)
     return this.products.products;
   }
 
@@ -45,7 +46,6 @@ export class HomeComponent implements OnInit {
     let especiales: String = $("#especiales").val()
     let descripcion: String = $("#descripcion").val()
     let imagen: String = $("#img").val()
-
     this.products.insertProduct(id, precio, imagen, nombre, descripcion, especiales)
     return true;
   }

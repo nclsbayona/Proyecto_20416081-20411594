@@ -5,17 +5,21 @@ import { Product } from '../../models/product/product.model';
   providedIn: 'root'
 })
 export class ProductsService {
-  static remove(p: Product) {
+
+
+  static products: Product[] = [];
+
+  static remove(p: string) {
+    let id: number=parseInt(p)
     console.log(this.products);
-    for (let product of ProductsService.products) {
-      if (product.id == p.id) {
-        ProductsService.products.splice(ProductsService.products.indexOf(product), 1);
+    console.log("Remover",p);
+    for (let i=0; i<ProductsService.products.length; ++i) {
+      if (ProductsService.products[i].id == id) {
+        ProductsService.products.splice(i, 1);
         return;
       }
     }
   }
-
-  static products: Product[] = [];
 
   static poblate(){
     ProductsService.products.push(new Product(1, 10.5, "https://cdn.shopify.com/s/files/1/0537/9483/2552/products/angular23_480x.jpg?v=1640032503", "NOMBRE1", "Falta la descripcion", "offer"));
