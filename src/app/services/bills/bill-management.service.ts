@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cart } from 'src/app/models/cart/cart.model';
+import { User } from 'src/app/models/user/user.model';
 import { Bill, Bill_Element } from '../../models/bills/bill.model';
 import { AccountManagementService } from '../account/account-management.service';
 @Injectable({
@@ -10,8 +11,8 @@ export class BillManagementService {
       return BillManagementService.bills.length + 1;
   }
 
-  static addBill(cart: Cart): void {
-      let bill = new Bill(cart);
+  static addBill(cart: Cart, user: User): void {
+      let bill = new Bill(cart,user);
       BillManagementService.bills.push(bill);
   }
 

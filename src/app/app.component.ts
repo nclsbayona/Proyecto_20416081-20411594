@@ -14,6 +14,7 @@ export class AppComponent {
   constructor() {
     this.products.poblate();
     this.accounts.poblate();
+    console.log("Cuentas:",this.accounts.users)
   }
 
   title = 'E-Commerce';

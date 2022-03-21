@@ -1,21 +1,24 @@
 import { BillManagementService } from "src/app/services/bills/bill-management.service";
 import { Cart } from "../cart/cart.model";
 import { Product } from "../product/product.model";
+import { User } from "../user/user.model";
 
 export class Bill{
 
     cart: Cart;
+    user: User;
     date: Date;
     id: number;
 
-    constructor(cart: Cart){
+    constructor(cart: Cart, user: User){
         this.cart=cart;
+        this.user=user
         this.date=new Date();
         this.id=BillManagementService.getNextId();
     }
 
     static Empty(): Bill{
-        return new Bill(Cart.Empty());
+        return new Bill(Cart.Empty(),User.Empty());
     }
 }
 

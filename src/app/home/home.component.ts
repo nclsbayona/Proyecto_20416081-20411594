@@ -14,9 +14,18 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  static getProductById(idS: string): Product {
+    let id=parseInt(idS);
+    for (let product of ProductsService.products) {
+      if (product.id == id) {
+        return product;
+      }
+    }
+    return Product.Empty();
+  }
+
   getProducts(): Product[] {
-    console.log("getProducts")
-    console.log(this.products.products)
+    console.log("Home getProducts",this.products.products)
     return this.products.products;
   }
 
@@ -46,8 +55,14 @@ export class HomeComponent implements OnInit {
     let especiales: String = $("#especiales").val()
     let descripcion: String = $("#descripcion").val()
     let imagen: String = $("#img").val()
-    this.products.insertProduct(id, precio, imagen, nombre, descripcion, especiales)
-    return true;
+    if(HomeComponent.getProductById(id.toString()).id == 0){
+      //console.log("ID: ",getProductById(id.toString()).id)
+      this.products.insertProduct(id, precio, imagen, nombre, descripcion, especiales)
+      return true;
+    }else{
+      alert("El ID ingresado ya existe")
+      return false;
+    }
   }
 
 }

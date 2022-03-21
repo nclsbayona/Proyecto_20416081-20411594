@@ -13,6 +13,7 @@ export class AccountManagementService {
     if (AccountManagementService.users.length == 0) {
       AccountManagementService.users.push(new Admin("abril@cano.com", "@bril123"));
       AccountManagementService.users.push(new User("n@bayona.com", "Hola_1"));
+      AccountManagementService.users.push(new User("ernesto@perez.com", "Frailejon"));
     }
   }
 
@@ -32,6 +33,7 @@ export class AccountManagementService {
   }
 
   private static findUser(email: String): User | null {
+    this.orderUsers()
     let u: User | null = null;
     let start: number = 0;
     let end: number = this.users.length - 1;

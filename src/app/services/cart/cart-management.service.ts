@@ -43,7 +43,7 @@ export class CartManagementService {
     let cart = this.getCartByOwner(user);
     if (cart == null)
       return;
-    BillManagementService.addBill(cart);
+    BillManagementService.addBill(cart,user);
     this.removeCartByOwner(user);
   }
 
