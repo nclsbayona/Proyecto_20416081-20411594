@@ -9,17 +9,13 @@
                 ipsum rerum quis modi
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let product of products.products">
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let product of getProducts()">
                 <app-product [product]="product"></app-product>
             </div>
         </div>
     </div>
 
-    <div *ngIf="isAdmin(); then thenTemplate">
-    </div>
-
-    <ng-template #thenTemplate>
-        <div class="containerf">
+    <div *ngIf="isAdmin()" class="containerf">
             <h4>Insertar Producto</h4>
             <form class="form-floating" (ngSubmit)="Create()">
 
@@ -59,5 +55,4 @@
                 </div>
                 
             </form>
-        </div>
-    </ng-template>
+</div>
