@@ -4,6 +4,9 @@ import { Product } from 'src/app/models/product/product.model';
 import { User } from 'src/app/models/user/user.model';
 import { BillManagementService } from '../bills/bill-management.service';
 import { CookieManagementService } from '../cookies/cookie-management.service';
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Configure } from '../utils/config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +18,23 @@ export class CartManagementService {
   }
 
   static carts: Cart[] = [];
+  static base_url: string = "";
 
-  constructor() {
+  constructor(private http: HttpClient) {
+  }
+
+  getCarts(){
+    CartManagementService.base_url = `${Configure.getIpPeticiones()}` + "cart/";
+    this.http.get(CartManagementService.base_url + "get/all").pipe(map(Configure.extractData), catchError(Configure.handleError)).subscribe(data => {
+      for (let c of data) {
+        let create:Cart=new Cart(c.user);
+        for (let element of c.billElements) {
+          create.addElement(element.product, element.total);
+        }
+        CartManagementService.carts.push(create);
+      }
+    });
+    console.log(CartManagementService.carts);
   }
 
   static removeElementFromUserCart(user: User, element: Product, amount: number): void {

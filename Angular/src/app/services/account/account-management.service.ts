@@ -11,13 +11,22 @@ declare let $: any
 })
 export class AccountManagementService {
   static users: User[] = [];
+  static base_url: string = "";
 
-  static poblate() {
-    if (AccountManagementService.users.length == 0) {
-      AccountManagementService.users.push(new Admin("abril@cano.com", "@bril123"));
-      AccountManagementService.users.push(new User("n@bayona.com", "Hola_1"));
-      AccountManagementService.users.push(new User("ernesto@perez.com", "Frailejon"));
+  constructor(private http: HttpClient) {
+  }
+
+  getUsers() {
+    AccountManagementService.base_url = `${Configure.getIpPeticiones()}` + "accounts/";
+    this.http.get(AccountManagementService.base_url + "get/all").pipe(map(Configure.extractData), catchError(Configure.handleError)).subscribe(data => {
+      for (let user of data) {
+        if (user.admin)
+        AccountManagementService.users.push(new Admin(user.email, user.password));
+        else
+        AccountManagementService.users.push(new User(user.email, user.password));
+      }
     }
+    );
   }
 
   static getCurrentUser(): User | null {

@@ -3,6 +3,7 @@ package co.edu.javeriana.proyecto2_web.entities;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class User {
     private String email;
     @Basic
     private String password;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Bill> bills;
 
     public User(String email, String password) {

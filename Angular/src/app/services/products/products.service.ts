@@ -15,22 +15,21 @@ export class ProductsService {
   constructor(private http: HttpClient) {
   }
 
-  getProducts(){
-    Configure.init().then(()=>{
-      ProductsService.base_url=`${Configure.getIpPeticiones()}`+"products/";
-      this.http.get(ProductsService.base_url+"get/all").pipe(map(Configure.extractData), catchError(Configure.handleError)).subscribe(data=>{
-        for (let product of data) {
-          ProductsService.insertProduct(product.id, product.price, product.imageUrl, product.name, product.description, product.specials);
-        }
+  getProducts() {
+    ProductsService.base_url = `${Configure.getIpPeticiones()}` + "products/";
+    this.http.get(ProductsService.base_url + "get/all").pipe(map(Configure.extractData), catchError(Configure.handleError)).subscribe(data => {
+      for (let product of data) {
+        ProductsService.products.push(new Product(product.id, product.price, product.imageUrl, product.name, product.description, product.specials));
       }
-      )});
+    }
+    );
   }
 
   static remove(p: string): void {
-    let id: number=parseInt(p)
+    let id: number = parseInt(p)
     console.log(this.products);
-    console.log("Remover",p);
-    for (let i=0; i<ProductsService.products.length; ++i) {
+    console.log("Remover", p);
+    for (let i = 0; i < ProductsService.products.length; ++i) {
       if (ProductsService.products[i].id == id) {
         ProductsService.products.splice(i, 1);
         return;
@@ -38,13 +37,13 @@ export class ProductsService {
     }
   }
 
-  static insertProduct(id: number, price: number, image: String, nombre: String, descripcion: String, specials: String): Boolean{
+  static insertProduct(id: number, price: number, image: String, nombre: String, descripcion: String, specials: String): Boolean {
     ProductsService.products.push(new Product(id, price, image, nombre, descripcion, specials));
     return true;
   }
 
   static getProductById(idS: string): Product {
-    let id=parseInt(idS);
+    let id = parseInt(idS);
     for (let product of ProductsService.products) {
       if (product.id == id) {
         return product;

@@ -56,7 +56,7 @@ class LoadData {
 		};
 	}
 
-	/*@Bean
+	@Bean
 	CommandLineRunner initCartsInDatabase(UserRepository userRepository, ProductRepository productRepository,
 			BillElementRepository billElementRepository, CartRepository cartRepository) {
 		return args -> {
@@ -83,7 +83,7 @@ class LoadData {
 			billRepository.save(bill);
 		};
 	}
-	*/
+	
 
 	@Bean
 	CommandLineRunner init(UserRepository userRepository, ProductRepository productRepository,
