@@ -34,7 +34,6 @@ export class CartManagementService {
         CartManagementService.carts.push(create);
       }
     });
-    console.log(CartManagementService.carts);
   }
 
   static removeElementFromUserCart(user: User, element: Product, amount: number): void {
