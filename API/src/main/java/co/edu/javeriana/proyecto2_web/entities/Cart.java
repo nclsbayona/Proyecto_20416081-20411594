@@ -3,6 +3,7 @@ package co.edu.javeriana.proyecto2_web.entities;
 import java.util.List;
 
 import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Cart {
     private Long id;
     @ManyToOne
     private User user;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<BillElement> billElements;
 
     public Cart(User user, List<BillElement> billElements) {

@@ -2,6 +2,7 @@ package co.edu.javeriana.proyecto2_web.entities;
 
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class User {
     private String email;
     @Basic
     private String password;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Bill> bills;
 
     public User(String email, String password) {

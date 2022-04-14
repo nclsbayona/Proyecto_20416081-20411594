@@ -2,7 +2,9 @@ package co.edu.javeriana.proyecto2_web.entities;
 
 import java.sql.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +28,7 @@ public class Bill {
     private Date date;
     @OneToOne
     private Cart cart;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private User user;
 
     public Bill(Cart cart, User user) {

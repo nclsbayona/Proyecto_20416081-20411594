@@ -34,6 +34,7 @@ public class AccountsController {
         return null;
     }
 
+    //La contra se pasa como una cadena de caracteres sin comillas ni nada
     @PostMapping("/add")
     public User addUser(@RequestParam(required = false, name = "email") String username,
             @RequestBody(required = false) String password) {

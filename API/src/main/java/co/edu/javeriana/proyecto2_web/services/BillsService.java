@@ -46,7 +46,7 @@ public class BillsService {
     }
 
     public Bill createBill(Cart cart, User user){
-        cRepository.removeById(cart.getId());
+        //cRepository.removeById(cart.getId());
         return bRepository.save(new Bill(cart, user));
     }
 }

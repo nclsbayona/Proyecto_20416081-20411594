@@ -37,14 +37,18 @@ public class ProductsController {
         return null;
     }
 
+    // Se manda el producto sin id como json
     @PostMapping("/create")
     public Product createProduct(@RequestBody Product product) {
         return productsService.addProduct(product);
     }
 
+    // Parametros
     @PostMapping("/new")
-    public Product createProduct(@RequestParam(name = "name") String name, @RequestParam(name = "description") String description,
-    @RequestParam(name = "imageUrl") String imageUrl, @RequestParam(name = "price") Double price, @RequestParam(name = "specials") String specials) {
+    public Product createProduct(@RequestParam(name = "name") String name,
+            @RequestParam(name = "description") String description,
+            @RequestParam(name = "imageUrl") String imageUrl, @RequestParam(name = "price") Double price,
+            @RequestParam(name = "specials") String specials) {
         return productsService.addProduct(name, description, imageUrl, price, specials);
     }
 
@@ -65,12 +69,10 @@ public class ProductsController {
     }
 
     @DeleteMapping("/delete")
-    public boolean deleteProduct(@RequestBody(required = false) Product product,
+    public boolean deleteProduct(
             @RequestParam(required = false, name = "id") Long id) {
         if (id != null)
             return productsService.removeProduct(id);
-        else if (product != null)
-            productsService.removeProduct(product);
         return false;
     }
 }

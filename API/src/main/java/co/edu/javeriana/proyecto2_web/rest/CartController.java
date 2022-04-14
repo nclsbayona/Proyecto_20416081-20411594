@@ -20,7 +20,7 @@ import co.edu.javeriana.proyecto2_web.services.AccountsService;
 import co.edu.javeriana.proyecto2_web.services.CartService;
 
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("/api/carts")
 public class CartController {
     @Autowired
     ProductRepository productRepository;

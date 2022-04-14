@@ -31,7 +31,6 @@ public class Product {
     @Basic
     private String specials;
 
-
     public Product(String name, String description, double price, String image, String specials) {
         this.name = name;
         this.description = description;
