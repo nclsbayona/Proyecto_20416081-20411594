@@ -14,6 +14,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     Optional<User> findById(Long id);
     Page<User> findByEmail(String email, Pageable pageable);
     Page<User> findByEmailEndingWith(String domain, Pageable pageable);
+    @Query("select u from User u where u.email = ?1")
+    User findByUsername(String username);
     @Query("delete from User u where u.id = ?1")
     void removeById(Long id);
 }

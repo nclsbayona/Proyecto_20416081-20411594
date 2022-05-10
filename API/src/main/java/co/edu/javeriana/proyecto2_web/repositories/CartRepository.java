@@ -2,16 +2,22 @@ package co.edu.javeriana.proyecto2_web.repositories;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import co.edu.javeriana.proyecto2_web.entities.Cart;
 
 @Repository
 public interface CartRepository extends PagingAndSortingRepository<Cart, Long>{
-    Page<Cart> findByUserId(Long userId, Pageable pageable);
+Page<Cart> findByUserId(Long userId, Pageable pageable);
     @Query("delete from Cart c where c.user.id = ?1")
+    @Modifying
+    @Transactional
     void removeByUserId(Long userId);
     @Query("delete from Cart c where c.id = ?1")
     void removeById(Long id);

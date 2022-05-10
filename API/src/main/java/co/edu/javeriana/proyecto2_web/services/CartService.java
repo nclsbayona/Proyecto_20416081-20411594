@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import co.edu.javeriana.proyecto2_web.entities.Bill;
 import co.edu.javeriana.proyecto2_web.entities.BillElement;
 import co.edu.javeriana.proyecto2_web.entities.Cart;
 import co.edu.javeriana.proyecto2_web.entities.Product;
@@ -21,7 +22,8 @@ public class CartService {
     @Autowired
     UserRepository userRepository;
 
-    BillsService billService=new BillsService();
+    @Autowired
+    BillsService billService;
 
     public List<Cart> getAllCarts() {
         return (List<Cart>) cartRepository.findAll();
@@ -85,11 +87,11 @@ public class CartService {
         return true;
     }
 
-    public boolean payCart(Long id) {
+    public Bill payCart(Long id) {
         Cart cart = cartRepository.findById(id).get();
-        billService.createBill(cart, cart.getUser());
-        cartRepository.deleteById(cart.getId());
-        return true;
+        Bill b= billService.createBill(cart, cart.getUser());
+        System.out.println("Aqui "+b);
+        return b;
     }
 
     public boolean payCart(Long id, User user) {

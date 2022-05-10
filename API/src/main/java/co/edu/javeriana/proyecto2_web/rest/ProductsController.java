@@ -2,6 +2,8 @@ package co.edu.javeriana.proyecto2_web.rest;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.javeriana.proyecto2_web.entities.Product;
+import co.edu.javeriana.proyecto2_web.exceptions.GeneralException;
+import co.edu.javeriana.proyecto2_web.exceptions.ProductNotFoundException;
 import co.edu.javeriana.proyecto2_web.services.ProductsService;
 
 @RestController
@@ -27,31 +31,61 @@ public class ProductsController {
         return productsService.getAll();
     }
 
+    @RolesAllowed({ "ADMIN", "USER" })
     @GetMapping("/get")
     public List<Product> getProduct(@RequestParam(required = false, name = "id") Long id,
             @RequestParam(required = false, name = "name") String name) {
-        if (id != null)
-            return List.of(productsService.getProduct(id));
-        else if (name != null)
-            return productsService.getByName(name);
+        if (id != null) {
+            try {
+                List<Product> list = List.of(productsService.getProduct(id));
+                if (list == null || list.size() > 0)
+                    return list;
+                throw new ProductNotFoundException(id);
+            } catch (Exception e) {
+                throw new ProductNotFoundException(id);
+            }
+        } else if (name != null) {
+            try {
+                List<Product> list = productsService.getByName(name);
+                if (list == null || list.size() > 0)
+                    return list;
+
+                throw new ProductNotFoundException(name);
+            } catch (Exception e) {
+                throw new ProductNotFoundException(name);
+            }
+        }
         return null;
     }
 
+    @RolesAllowed({ "ADMIN" })
     // Se manda el producto sin id como json
     @PostMapping("/create")
     public Product createProduct(@RequestBody Product product) {
-        return productsService.addProduct(product);
+        try {
+            return productsService.addProduct(product);
+        } catch (Exception e) {
+            throw new GeneralException("product " + product.getName());
+        }
     }
 
+    @RolesAllowed({ "ADMIN" })
     // Parametros
     @PostMapping("/new")
     public Product createProduct(@RequestParam(name = "name") String name,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "imageUrl") String imageUrl, @RequestParam(name = "price") Double price,
             @RequestParam(name = "specials") String specials) {
-        return productsService.addProduct(name, description, imageUrl, price, specials);
+        try {
+            return productsService.addProduct(name, description, imageUrl, price, specials);
+
+        } catch (Exception e) {
+            throw new GeneralException("product " + name);
+        }
     }
 
+    @RolesAllowed({ "ADMIN" })
+    // Se manda el producto con id como json o se envian los parametros completos
     @PutMapping("/update")
     public Product updateProduct(@RequestBody(required = false) Product product,
             @RequestParam(required = false, name = "id") Long id,
@@ -61,18 +95,32 @@ public class ProductsController {
             @RequestParam(required = false, name = "price") Double price,
             @RequestParam(required = false, name = "specials") String specials) {
         if (product != null)
-            return productsService.updateProduct(product);
+            try {
+                return productsService.updateProduct(product);
+            } catch (Exception e) {
+                throw new GeneralException("product with id " + product.getId());
+            }
         else if (id != null && name != null && description != null && imageUrl != null && price != null
                 && specials != null)
-            productsService.updateProduct(id, name, description, imageUrl, price, specials);
+            try {
+                productsService.updateProduct(id, name, description, imageUrl, price, specials);
+
+            } catch (Exception e) {
+                throw new GeneralException("product with id " + id);
+            }
         return null;
     }
 
+    @RolesAllowed({ "ADMIN" })
     @DeleteMapping("/delete")
     public boolean deleteProduct(
-            @RequestParam(required = false, name = "id") Long id) {
+            @RequestParam(name = "id") Long id) {
+        try {
         if (id != null)
             return productsService.removeProduct(id);
+        } catch (Exception e) {
+            throw new GeneralException("product with id " + id);
+        }
         return false;
     }
 }

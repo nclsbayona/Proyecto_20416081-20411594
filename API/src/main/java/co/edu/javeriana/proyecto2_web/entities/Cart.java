@@ -24,7 +24,7 @@ public class Cart {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<BillElement> billElements;

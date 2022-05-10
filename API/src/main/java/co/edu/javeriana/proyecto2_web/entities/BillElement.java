@@ -46,4 +46,10 @@ public class BillElement {
         this.product = product;
         this.total = (long) quantity;
     }
+
+    public BillElement(Long id, Product product, Long quantity) {
+        this.id=id;
+        this.product = product;
+        this.total = (long) quantity;
+    }
 }

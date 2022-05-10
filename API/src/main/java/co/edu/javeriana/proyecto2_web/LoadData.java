@@ -8,30 +8,54 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import co.edu.javeriana.proyecto2_web.entities.Admin;
 import co.edu.javeriana.proyecto2_web.entities.Bill;
 import co.edu.javeriana.proyecto2_web.entities.BillElement;
 import co.edu.javeriana.proyecto2_web.entities.Cart;
 import co.edu.javeriana.proyecto2_web.entities.Product;
+import co.edu.javeriana.proyecto2_web.entities.Role;
 import co.edu.javeriana.proyecto2_web.entities.User;
-import co.edu.javeriana.proyecto2_web.repositories.BillElementRepository;
 import co.edu.javeriana.proyecto2_web.repositories.BillRepository;
+import co.edu.javeriana.proyecto2_web.repositories.BillElementRepository;
 import co.edu.javeriana.proyecto2_web.repositories.CartRepository;
 import co.edu.javeriana.proyecto2_web.repositories.ProductRepository;
+import co.edu.javeriana.proyecto2_web.repositories.RoleRepository;
 import co.edu.javeriana.proyecto2_web.repositories.UserRepository;
 
 @Configuration
 class LoadData {
 
 	@Bean
-	CommandLineRunner initUsersInDatabase(UserRepository userRepository) {
+	CommandLineRunner initUsersInDatabase(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		return args -> {
 			System.out.println("Starting Users");
-			userRepository.save(createUser("abril@cano.com", "@bril123", true));
-			userRepository.save(createUser("admin@admin.com", "@dmin", true));
-			userRepository.save(createUser("hola@aol.com", "Contr4senia", false));
-			userRepository.save(createUser("n@bayona.com", "Hola_1", false));
+			Role adminRole = new Role();
+			adminRole.setName("ADMIN");
+			roleRepository.save(adminRole);
+			
+			Role userRole = new Role();
+			userRole.setName("USER");
+			roleRepository.save(userRole);
+
+			User admin = new User();
+			admin.setEmail("admin@mail.com");
+			admin.setPassword(bCryptPasswordEncoder.encode("12345"));
+			admin.setRol(adminRole);
+			userRepository.save(admin);
+			
+			User visitor = new User();
+			visitor.setEmail("visitor@mail.com");
+			visitor.setPassword(bCryptPasswordEncoder.encode("12345"));
+			visitor.setRol(userRole);
+			userRepository.save(visitor);
+			
+			User customer = new User();
+			customer.setEmail("customer@mail.com");
+			customer.setPassword(bCryptPasswordEncoder.encode("12345"));
+			customer.setRol(userRole);
+			userRepository.save(customer);
 		};
 	}
 
@@ -56,16 +80,18 @@ class LoadData {
 		};
 	}
 
-	/* @Bean
+	/*
+	@Bean
 	CommandLineRunner initCartsInDatabase(UserRepository userRepository, ProductRepository productRepository,
 			BillElementRepository billElementRepository, CartRepository cartRepository) {
 		return args -> {
 			System.out.println("Starting carts");
-			User user = userRepository.findByEmail("n@bayona.com", PageRequest.of(0, 1)).getContent().get(0);
+			User user = userRepository.findByEmail("admin@mail.com", PageRequest.of(0, 1)).getContent().get(0);
 			System.out.println("Agregando al carrito de " + user);
 			BillElement b1 = createBillElement(productRepository.findById((long) 1).get(), (long) 2);
 			BillElement b2 = createBillElement(productRepository.findById((long) 2).get(), (long) 2);
 			BillElement b3 = createBillElement(productRepository.findById((long) 3).get(), (long) 2);
+			System.out.println("Agregando al carrito "+b1);
 			List<BillElement> list = Arrays.asList(b1, b2, b3);
 			billElementRepository.saveAll(list);
 			Cart cart = createCart(user, list);
@@ -82,9 +108,8 @@ class LoadData {
 			Bill bill = createBill(cart.getUser(), cart);
 			billRepository.save(bill);
 		};
-	} */
-	
-
+	}
+	*/
 	@Bean
 	CommandLineRunner init(UserRepository userRepository, ProductRepository productRepository,
 			BillRepository billRepository, CartRepository cartRepository) {

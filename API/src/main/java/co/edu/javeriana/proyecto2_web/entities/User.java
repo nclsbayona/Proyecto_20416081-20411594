@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Getter;
@@ -31,10 +32,17 @@ public class User {
     private String password;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Bill> bills;
+    @ManyToOne(fetch = FetchType.LAZY)
+	private Role rol;
+    private boolean activo = true;
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public boolean isActivo(){
+        return activo;
     }
 
     public String toString() {
