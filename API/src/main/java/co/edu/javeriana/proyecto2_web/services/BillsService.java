@@ -1,7 +1,11 @@
 package co.edu.javeriana.proyecto2_web.services;
 
+import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -47,5 +51,23 @@ public class BillsService {
 
     public Bill createBill(Cart cart, User user){
         return bRepository.save(new Bill(cart, user));
+    }
+
+    public List<Bill> getByDate(Date start, Date end) {
+        return bRepository.findByDateBetween(start, end);
+    }
+
+    public List<Bill> getByLastWeek() {
+        final DateTime input = new DateTime();
+        final DateTime start = input.minusWeeks(1).withDayOfWeek(DateTimeConstants.MONDAY);
+        final Date startOfLastWeek = start.toLocalDate().toDate();
+        final Date endOfLastWeek = start.plusDays(6).toLocalDate().toDate();
+        return bRepository.findByDateBetween(startOfLastWeek, endOfLastWeek);
+    }
+
+    public List<Bill> getByThisMonth() {
+        final Date startOfLastMonth = new LocalDate().withDayOfMonth(1).toDate();
+        final Date now = new Date(System.currentTimeMillis());
+        return bRepository.findByDateBetween(startOfLastMonth, now);
     }
 }

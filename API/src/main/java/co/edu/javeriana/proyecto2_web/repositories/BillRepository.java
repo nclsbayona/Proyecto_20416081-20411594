@@ -1,5 +1,6 @@
 package co.edu.javeriana.proyecto2_web.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,4 +14,5 @@ import co.edu.javeriana.proyecto2_web.entities.Bill;
 public interface BillRepository extends PagingAndSortingRepository<Bill, Long>{
     Page<Bill> findByUserId(Long id, Pageable pageable);
     List<Bill> findByUserId(Long id);
+    List<Bill> findByDateBetween(Date start, Date end);
 }

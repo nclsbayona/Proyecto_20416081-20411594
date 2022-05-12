@@ -90,21 +90,18 @@ public class CartService {
     public Bill payCart(Long id) {
         Cart cart = cartRepository.findById(id).get();
         Bill b= billService.createBill(cart, cart.getUser());
-        System.out.println("Aqui "+b);
         return b;
     }
 
     public boolean payCart(Long id, User user) {
         Cart cart = cartRepository.findById(id).get();
         billService.createBill(cart, user);
-        cartRepository.deleteById(cart.getId());
         return true;
     }
 
     public boolean payCart(User user) {
         Cart cart = cartRepository.findByUserId(user.getId(),PageRequest.of(0, 10)).getContent().get(0);
         billService.createBill(cart, user);
-        cartRepository.deleteById(cart.getId());
         return true;
     }
 }

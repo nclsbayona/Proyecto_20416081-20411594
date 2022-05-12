@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.edu.javeriana.proyecto2_web.annotations.IsAdmin;
+import co.edu.javeriana.proyecto2_web.annotations.IsCustomer;
 import co.edu.javeriana.proyecto2_web.entities.BillElement;
 import co.edu.javeriana.proyecto2_web.entities.Cart;
 import co.edu.javeriana.proyecto2_web.entities.User;
@@ -33,11 +35,13 @@ public class CartController {
     @Autowired
     AccountsService userRepository;
 
+    @IsAdmin
     @GetMapping("/get/all")
     public List<Cart> getAll() {
         return cartService.getAllCarts();
     }
 
+    @IsAdmin
     @GetMapping("/get")
     public Cart getCart(@RequestParam(required = false, name = "username") String username,
             @RequestParam(required = false, name = "id") Long id) {
@@ -63,6 +67,8 @@ public class CartController {
         return null;
     }
 
+    @IsAdmin
+    @IsCustomer
     @PutMapping("/add")
     public Cart addToCart(@RequestParam(required = true, name = "productId") Long productId,
             @RequestBody(required = false) Cart cart,
@@ -87,6 +93,8 @@ public class CartController {
         return null;
     }
 
+    @IsAdmin
+    @IsCustomer
     @PostMapping("/create")
     public Cart createCart(@RequestBody Cart cart) {
         try {
@@ -96,6 +104,8 @@ public class CartController {
         }
     }
 
+    @IsAdmin
+    @IsCustomer
     @PostMapping("/new")
     public Cart createCart(@RequestParam(required = true, name = "userId") Long userid,
             @RequestBody List<BillElement> billElements) {
@@ -106,6 +116,7 @@ public class CartController {
         }
     }
 
+    @IsAdmin
     @DeleteMapping("/delete")
     public boolean deleteCart(@RequestParam(required = false, name = "email") String email,
             @RequestParam(required = false, name = "id") Long id) {
@@ -126,6 +137,8 @@ public class CartController {
         return false;
     }
 
+    @IsAdmin
+    @IsCustomer
     @PutMapping("/pay")
     public boolean payCart(@RequestParam(required = false, name = "id") Long id,
             @RequestParam(required = false, name = "email") String email,

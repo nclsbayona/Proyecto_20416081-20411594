@@ -1,8 +1,8 @@
 package co.edu.javeriana.proyecto2_web.rest;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.security.RolesAllowed;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.edu.javeriana.proyecto2_web.annotations.IsAdmin;
+import co.edu.javeriana.proyecto2_web.annotations.IsCustomer;
 import co.edu.javeriana.proyecto2_web.entities.Product;
+import co.edu.javeriana.proyecto2_web.entities.dtos.ProductDTO;
 import co.edu.javeriana.proyecto2_web.exceptions.GeneralException;
 import co.edu.javeriana.proyecto2_web.exceptions.ProductNotFoundException;
 import co.edu.javeriana.proyecto2_web.services.ProductsService;
@@ -27,19 +30,20 @@ public class ProductsController {
     ProductsService productsService;
 
     @GetMapping("/get/all")
-    public List<Product> getAll() {
-        return productsService.getAll();
+    public ArrayList<ProductDTO> getAll() {
+        return new ArrayList<ProductDTO>(productsService.getAll().stream().map(ProductDTO::new).collect(Collectors.toList()));
     }
 
-    @RolesAllowed({ "ADMIN", "USER" })
+    @IsAdmin
+    @IsCustomer
     @GetMapping("/get")
-    public List<Product> getProduct(@RequestParam(required = false, name = "id") Long id,
+    public ArrayList<ProductDTO> getProduct(@RequestParam(required = false, name = "id") Long id,
             @RequestParam(required = false, name = "name") String name) {
         if (id != null) {
             try {
                 List<Product> list = List.of(productsService.getProduct(id));
                 if (list == null || list.size() > 0)
-                    return list;
+                return new ArrayList<ProductDTO>(list.stream().map(ProductDTO::new).collect(Collectors.toList()));
                 throw new ProductNotFoundException(id);
             } catch (Exception e) {
                 throw new ProductNotFoundException(id);
@@ -48,7 +52,7 @@ public class ProductsController {
             try {
                 List<Product> list = productsService.getByName(name);
                 if (list == null || list.size() > 0)
-                    return list;
+                    return new ArrayList<ProductDTO>(list.stream().map(ProductDTO::new).collect(Collectors.toList()));
 
                 throw new ProductNotFoundException(name);
             } catch (Exception e) {
@@ -58,36 +62,35 @@ public class ProductsController {
         return null;
     }
 
-    @RolesAllowed({ "ADMIN" })
+    @IsAdmin
     // Se manda el producto sin id como json
     @PostMapping("/create")
-    public Product createProduct(@RequestBody Product product) {
+    public ProductDTO createProduct(@RequestBody Product product) {
         try {
-            return productsService.addProduct(product);
+            return new ProductDTO(productsService.addProduct(product));
         } catch (Exception e) {
             throw new GeneralException("product " + product.getName());
         }
     }
 
-    @RolesAllowed({ "ADMIN" })
+    @IsAdmin
     // Parametros
     @PostMapping("/new")
-    public Product createProduct(@RequestParam(name = "name") String name,
+    public ProductDTO createProduct(@RequestParam(name = "name") String name,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "imageUrl") String imageUrl, @RequestParam(name = "price") Double price,
             @RequestParam(name = "specials") String specials) {
         try {
-            return productsService.addProduct(name, description, imageUrl, price, specials);
-
+            return new ProductDTO(productsService.addProduct(name, description, imageUrl, price, specials));
         } catch (Exception e) {
             throw new GeneralException("product " + name);
         }
     }
 
-    @RolesAllowed({ "ADMIN" })
+    @IsAdmin
     // Se manda el producto con id como json o se envian los parametros completos
     @PutMapping("/update")
-    public Product updateProduct(@RequestBody(required = false) Product product,
+    public ProductDTO updateProduct(@RequestBody(required = false) Product product,
             @RequestParam(required = false, name = "id") Long id,
             @RequestParam(required = false, name = "name") String name,
             @RequestParam(required = false, name = "description") String description,
@@ -96,22 +99,21 @@ public class ProductsController {
             @RequestParam(required = false, name = "specials") String specials) {
         if (product != null)
             try {
-                return productsService.updateProduct(product);
+                return new ProductDTO(productsService.updateProduct(product));
             } catch (Exception e) {
                 throw new GeneralException("product with id " + product.getId());
             }
         else if (id != null && name != null && description != null && imageUrl != null && price != null
                 && specials != null)
             try {
-                productsService.updateProduct(id, name, description, imageUrl, price, specials);
-
+                return new ProductDTO(productsService.updateProduct(id, name, description, imageUrl, price, specials));
             } catch (Exception e) {
                 throw new GeneralException("product with id " + id);
             }
         return null;
     }
 
-    @RolesAllowed({ "ADMIN" })
+    @IsAdmin
     @DeleteMapping("/delete")
     public boolean deleteProduct(
             @RequestParam(name = "id") Long id) {

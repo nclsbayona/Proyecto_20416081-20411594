@@ -1,8 +1,9 @@
 package co.edu.javeriana.proyecto2_web;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
+import javax.transaction.Transactional;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -26,39 +27,40 @@ import co.edu.javeriana.proyecto2_web.repositories.UserRepository;
 
 @Configuration
 class LoadData {
-
 	@Bean
-	CommandLineRunner initUsersInDatabase(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	CommandLineRunner initUsersInDatabase(UserRepository userRepository, RoleRepository roleRepository,
+			BCryptPasswordEncoder bCryptPasswordEncoder) {
 		return args -> {
 			System.out.println("Starting Users");
 			Role adminRole = new Role();
 			adminRole.setName("ADMIN");
 			roleRepository.save(adminRole);
-			
+
 			Role userRole = new Role();
 			userRole.setName("USER");
 			roleRepository.save(userRole);
 
 			User admin = new User();
-			admin.setEmail("admin@mail.com");
-			admin.setPassword(bCryptPasswordEncoder.encode("12345"));
-			admin.setRol(adminRole);
+			admin.setEmail("abril@cano.com");
+			admin.setPassword(bCryptPasswordEncoder.encode("@bril123"));
+			admin.setRol(userRole);
 			userRepository.save(admin);
-			
+
 			User visitor = new User();
-			visitor.setEmail("visitor@mail.com");
-			visitor.setPassword(bCryptPasswordEncoder.encode("12345"));
-			visitor.setRol(userRole);
+			visitor.setEmail("admin@admin.com");
+			visitor.setPassword(bCryptPasswordEncoder.encode("password"));
+			visitor.setRol(adminRole);
 			userRepository.save(visitor);
-			
+
 			User customer = new User();
-			customer.setEmail("customer@mail.com");
-			customer.setPassword(bCryptPasswordEncoder.encode("12345"));
+			customer.setEmail("n@bayona.com");
+			customer.setPassword(bCryptPasswordEncoder.encode("Hol@_1"));
 			customer.setRol(userRole);
 			userRepository.save(customer);
 		};
 	}
 
+	@Transactional
 	@Bean
 	CommandLineRunner initProductsInDatabase(ProductRepository productRepository) {
 		return args -> {
@@ -81,173 +83,43 @@ class LoadData {
 	}
 
 	/*
+	@Transactional
 	@Bean
 	CommandLineRunner initCartsInDatabase(UserRepository userRepository, ProductRepository productRepository,
 			BillElementRepository billElementRepository, CartRepository cartRepository) {
 		return args -> {
 			System.out.println("Starting carts");
-			User user = userRepository.findByEmail("admin@mail.com", PageRequest.of(0, 1)).getContent().get(0);
+			User user = userRepository.findByEmail("abril@cano.com", PageRequest.of(0, 1)).getContent().get(0);
 			System.out.println("Agregando al carrito de " + user);
 			BillElement b1 = createBillElement(productRepository.findById((long) 1).get(), (long) 2);
+			billElementRepository.save(b1);
 			BillElement b2 = createBillElement(productRepository.findById((long) 2).get(), (long) 2);
 			BillElement b3 = createBillElement(productRepository.findById((long) 3).get(), (long) 2);
-			System.out.println("Agregando al carrito "+b1);
-			List<BillElement> list = Arrays.asList(b1, b2, b3);
-			billElementRepository.saveAll(list);
-			Cart cart = createCart(user, list);
-			cartRepository.save(cart);
+			List<BillElement> billElements = new ArrayList<BillElement>();
+
+			System.out.println("Agregando al carrito " + b1);
+			
+			 billElements.add(b1);
+			 Cart cart=createCart(user, billElements);
+			 cartRepository.save(cart);
+			 System.out.println(cart);
+			
 		};
 	}
 
+	
 	@Bean
-	CommandLineRunner initBillsInDatabase(UserRepository userRepository, ProductRepository productRepository,
-			CartRepository cartRepository, BillRepository billRepository) {
-		return args -> {
-			System.out.println("Starting bills");
-			Cart cart = cartRepository.findById((long) 1).get();
-			Bill bill = createBill(cart.getUser(), cart);
-			billRepository.save(bill);
-		};
+	CommandLineRunner initBillsInDatabase(UserRepository userRepository,
+	ProductRepository productRepository,
+	CartRepository cartRepository, BillRepository billRepository) {
+	return args -> {
+	System.out.println("Starting bills");
+	Cart cart = cartRepository.findById((long) 1).get();
+	Bill bill = createBill(cart.getUser(), cart);
+	billRepository.save(bill);
+	};
 	}
-	*/
-	@Bean
-	CommandLineRunner init(UserRepository userRepository, ProductRepository productRepository,
-			BillRepository billRepository, CartRepository cartRepository) {
-		return args -> {
-			try {
-				while (true) {
-					Scanner sc = new Scanner(System.in);
-					System.out.println("1. Add User/Admin");
-					System.out.println("2. Add Product");
-					System.out.println("3. All Users");
-					System.out.println("4. All Products");
-					System.out.println("5. All Carts");
-					System.out.println("6. All Bills");
-					System.out.println("7. Users by domain");
-					System.out.println("8. Remove product");
-					System.out.println("9. Remove user");
-					System.out.println("10. Remove cart");
-					System.out.println("11. Bills by user");
-					int opc = sc.nextInt();
-					switch (opc) {
-
-						case 1: {
-							System.out.println("Email:");
-							String email = sc.nextLine();
-							System.out.println("Password:");
-							String password = sc.nextLine();
-							boolean admin = sc.nextBoolean();
-							System.out.println("Email:" + email + "\nPassword:" + password + "\nAdmin:" + admin);
-							userRepository.save(LoadData.createUser(email, password, admin));
-							break;
-						}
-
-						case 2: {
-							System.out.println("Name:");
-							String name = sc.nextLine();
-							System.out.println("Description:");
-							String description = sc.nextLine();
-							System.out.println("Image Url");
-							String imageUrl = sc.nextLine();
-							System.out.println("Specials:");
-							String specials = sc.nextLine();
-							System.out.println("Price:");
-							double price = sc.nextDouble();
-							System.out.println("Name:" + name + "\nPrice:" + price + "\nDescription:" + description
-									+ "\nImage Url:" + imageUrl + "\nSpecials:" + specials);
-							productRepository
-									.save(LoadData.createProduct(name, description, price, imageUrl, specials));
-							break;
-						}
-
-						case 3: {
-							System.out.println("All Users:");
-							for (User u : userRepository.findAll()) {
-								System.out.println(u);
-							}
-							break;
-						}
-
-						case 4: {
-							System.out.println("All Products:");
-							for (Product p : productRepository.findAll()) {
-								System.out.println(p);
-							}
-							break;
-						}
-
-						case 5: {
-							System.out.println("All Carts:");
-							for (Cart c : cartRepository.findAll()) {
-								System.out.println(c);
-							}
-							break;
-						}
-
-						case 6: {
-							System.out.println("All Bills:");
-							for (Bill b : billRepository.findAll()) {
-								System.out.println(b);
-							}
-							break;
-						}
-
-						case 7: {
-							System.out.println("Domain:");
-							String domain = sc.nextLine();
-							System.out.println("Users with domain:" + domain);
-							for (User u : userRepository.findByEmailEndingWith(domain, PageRequest.of(0, 10))) {
-								System.out.println(u);
-							}
-							break;
-						}
-
-						case 8: {
-							System.out.println("Product Id:");
-							long id = sc.nextLong();
-							System.out.println("Product Id:" + id);
-							productRepository.deleteById(id);
-							break;
-						}
-
-						case 9: {
-							System.out.println("User Id:");
-							long id = sc.nextLong();
-							System.out.println("User Id:" + id);
-							userRepository.deleteById(id);
-							break;
-						}
-
-						case 10: {
-							System.out.println("Cart Id:");
-							long id = sc.nextLong();
-							System.out.println("Cart Id:" + id);
-							cartRepository.deleteById(id);
-							break;
-						}
-
-						case 11: {
-							System.out.println("User Id:");
-							long id = sc.nextLong();
-							System.out.println("User Id:" + id);
-							System.out.println("Bills with user:" + id);
-							for (Bill b : billRepository.findByUserId(id, PageRequest.of(0, 10))) {
-								System.out.println(b);
-							}
-							break;
-						}
-
-						default:
-							System.out.println("Invalid option");
-							System.exit(1);
-							sc.close();
-							break;
-					}
-				}
-			} catch (Exception e) {
-			}
-		};
-	}
+	 */
 
 	static User createUser(String email, String password, boolean isAdmin) {
 		User user = (isAdmin) ? new Admin(email, password) : new User(email, password);
