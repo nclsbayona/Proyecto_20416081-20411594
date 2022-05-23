@@ -56,7 +56,7 @@ export class ProductComponent implements OnInit {
     return this.product.specials;
   }
 
-  constructor() {
+  constructor( private products: ProductsService) {
     const getID = (): string =>
       this.product.id.toString();
 
@@ -87,11 +87,11 @@ export class ProductComponent implements OnInit {
           $("." + getID()).addClass("not-visible");
         })
         $('.cart' + getID()).on("click", function () {
-          CartManagementService.addToCart(ProductsService.getProductById(getID()), 1, AccountManagementService.getCurrentUser()!);
+          CartManagementService.addToCart(products.getProductById(getID()), 1, AccountManagementService.getCurrentUser()!);
         })
         $('.remove' + getID()).on("click", function () {
           console.log("Clicked on remove " + getID());
-          ProductsService.remove(getID());
+          products.remove(getID());
         })
       })
   }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/product/product.model';
 import { CookieManagementService } from '../services/cookies/cookie-management.service';
@@ -9,9 +10,13 @@ declare let $: any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  products = ProductsService;
-  constructor() { }
+  //products = ProductsService;
+  listaProductos: any;
+
+  constructor(private products: ProductsService) { }
+
   ngOnInit(): void {
+    this.getProducts();
   }
 
   static getProductById(idS: string): Product {
@@ -24,9 +29,11 @@ export class HomeComponent implements OnInit {
     return Product.Empty();
   }
 
-  getProducts(): Product[] {
-    console.log("Home getProducts",this.products.products)
-    return this.products.products;
+  getProducts(){
+    this.products.getProducts().subscribe((response: Product[]) => {
+      this.listaProductos = response;
+      }
+    );
   }
 
   isAdmin(): boolean {
@@ -49,15 +56,18 @@ export class HomeComponent implements OnInit {
   }
 
   Create(): boolean {
-    let id: number = $("#id").val()
-    let nombre: String = $("#nombre").val()
-    let precio: number = $("#precio").val()
-    let especiales: String = $("#especiales").val()
-    let descripcion: String = $("#descripcion").val()
-    let imagen: String = $("#img").val()
-    if(HomeComponent.getProductById(id.toString()).id == 0){
+    const productData = {
+      id: $("#id").val(),
+      nombre: $("#nombre").val(),
+      precio: $("#precio").val(),
+      especiales: $("#especiales").val(),
+      descripcion: $("#descripcion").val(),
+      imagen: $("#img").val()
+    }
+    
+    if(HomeComponent.getProductById(productData.id).id == 0){
       //console.log("ID: ",getProductById(id.toString()).id)
-      this.products.insertProduct(id, precio, imagen, nombre, descripcion, especiales)
+      this.products.insertProduct(productData).subscribe((respuesta: any) => {}); 
       return true;
     }else{
       alert("El ID ingresado ya existe")

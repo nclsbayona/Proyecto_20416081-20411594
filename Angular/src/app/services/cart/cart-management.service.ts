@@ -8,11 +8,10 @@ import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Configure } from '../utils/config';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class CartManagementService {
-  static addToCart(product: Product, amount: number, user: User) {
+
+  static addToCart(product: any, amount: number, user: User) {
     let cart: Cart = CartManagementService.getSpecificUserCart(user);
     cart.addElement(product, amount)
   }
@@ -43,8 +42,13 @@ export class CartManagementService {
     cart.removeElement(element, amount);
   }
 
-  static addCart(cart: Cart): void {
-    CartManagementService.carts.push(cart);
+  addCart(cart: Cart) {
+    //CartManagementService.carts.push(cart);
+    return this.http.post(
+      `${Configure.getIpPeticiones()}/cart/insert`, cart ).pipe(
+          map(Configure.extractData),
+          catchError(Configure.handleError)
+      );
   }
 
   private static removeCartByOwner(owner: User): void {

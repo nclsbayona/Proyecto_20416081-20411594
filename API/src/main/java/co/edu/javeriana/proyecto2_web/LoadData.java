@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import java.util.Arrays;
 
 import co.edu.javeriana.proyecto2_web.entities.Admin;
 import co.edu.javeriana.proyecto2_web.entities.Bill;
@@ -27,11 +31,12 @@ import co.edu.javeriana.proyecto2_web.repositories.UserRepository;
 
 @Configuration
 class LoadData {
+
 	@Bean
 	CommandLineRunner initUsersInDatabase(UserRepository userRepository, RoleRepository roleRepository,
 			BCryptPasswordEncoder bCryptPasswordEncoder) {
 		return args -> {
-			System.out.println("Starting Users");
+			System.out.println("STARTING USERS");
 			Role adminRole = new Role();
 			adminRole.setName("ADMIN");
 			roleRepository.save(adminRole);
@@ -64,7 +69,7 @@ class LoadData {
 	@Bean
 	CommandLineRunner initProductsInDatabase(ProductRepository productRepository) {
 		return args -> {
-			System.out.println("Starting Products");
+			System.out.println("STARTING PRODUCTS");
 			productRepository.save(createProduct("JS Hoodie", "Muestra tu pasión por JS", 70.000,
 					"https://cdn.shopify.com/s/files/1/0537/9483/2552/products/BC_Nodejs_M2_6d20acb8-d70c-45f5-a14a-5087648b92bf_480x.jpg?v=1614374723",
 					"offer"));
@@ -79,6 +84,7 @@ class LoadData {
 					"La herramienta más poderosa de un desarrollador", 80.000,
 					"https://ih1.redbubble.net/image.1055011715.8274/ssrco,mhoodie,mens,101010:01c5ca27c6,front,square_product,x600-bg,f8f8f8.1.jpg",
 					"exclusive"));
+			System.out.println("----------------------------------------------------------------------------");
 		};
 	}
 

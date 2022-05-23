@@ -17,10 +17,10 @@ export class AppComponent {
 
   ngOnInit() {
     this.products.getProducts();
-    this.accounts.getUsers();
-    this.carts.getCarts();
-    this.bills.getBills();
+    //this.accounts.getUsers();
+    //this.carts.getCarts();
+    //this.bills.getBills();
   }
 
-  title = 'E-Commerce';
+  title = 'Dev-Hoodies';
 }
