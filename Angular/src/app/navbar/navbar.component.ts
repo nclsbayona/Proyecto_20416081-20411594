@@ -48,18 +48,7 @@ export class NavbarComponent implements OnInit {
   isAdmin(): boolean {
     let ret = false;
     if (CookieManagementService.getCookie("username").length > 0) {
-      let cname = "user=";
-      let decodedCookie = decodeURIComponent(document.cookie);
-      let ca = decodedCookie.split(';');
-      for (let i = 0; i < ca.length && !ret; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(cname) == 0) {
-          ret = JSON.parse(c.substring(cname.length, c.length)).admin ? true : false;
-        }
-      }
+      ret=CookieManagementService.getCookie("admin").length>1;
     }
     return ret;
   }

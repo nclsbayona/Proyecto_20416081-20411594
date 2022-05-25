@@ -12,12 +12,12 @@ import { ProductsService } from './services/products/products.service';
 })
 export class AppComponent {
   constructor(private products: ProductsService, private accounts: AccountManagementService, private carts: CartManagementService, private bills: BillManagementService) {
-
   }
 
   ngOnInit() {
     this.products.getProducts();
-    //this.accounts.getUsers();
+    this.accounts.getUsers();
+    
     //this.carts.getCarts();
     //this.bills.getBills();
   }

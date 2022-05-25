@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AppComponent } from '../app.component';
 import { AccountManagementService } from '../services/account/account-management.service';
 declare let $:any;
 @Component({
@@ -7,8 +8,8 @@ declare let $:any;
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  account_service=AccountManagementService;
-  constructor() { 
+  constructor(private account_service: AccountManagementService) {
+    
   }
 
   ngOnInit(): void {
@@ -17,6 +18,7 @@ export class SignInComponent implements OnInit {
   login(): void{
     let email: String=$("#exampleInputEmail1").val()
     let pwd: String=$("#exampleInputPassword1").val()
+    console.log(email, pwd)
     console.log(this.account_service.login(email, pwd));
   }
 }

@@ -1,6 +1,4 @@
 package co.edu.javeriana.proyecto2_web;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,13 +6,7 @@ import javax.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import java.util.Arrays;
-
 import co.edu.javeriana.proyecto2_web.entities.Admin;
 import co.edu.javeriana.proyecto2_web.entities.Bill;
 import co.edu.javeriana.proyecto2_web.entities.BillElement;
@@ -22,9 +14,6 @@ import co.edu.javeriana.proyecto2_web.entities.Cart;
 import co.edu.javeriana.proyecto2_web.entities.Product;
 import co.edu.javeriana.proyecto2_web.entities.Role;
 import co.edu.javeriana.proyecto2_web.entities.User;
-import co.edu.javeriana.proyecto2_web.repositories.BillRepository;
-import co.edu.javeriana.proyecto2_web.repositories.BillElementRepository;
-import co.edu.javeriana.proyecto2_web.repositories.CartRepository;
 import co.edu.javeriana.proyecto2_web.repositories.ProductRepository;
 import co.edu.javeriana.proyecto2_web.repositories.RoleRepository;
 import co.edu.javeriana.proyecto2_web.repositories.UserRepository;

@@ -56,7 +56,7 @@ export class ProductComponent implements OnInit {
     return this.product.specials;
   }
 
-  constructor( private products: ProductsService) {
+  constructor( private products: ProductsService, private accountManagementService: AccountManagementService) {
     const getID = (): string =>
       this.product.id.toString();
 
@@ -86,8 +86,8 @@ export class ProductComponent implements OnInit {
         $('.exclusive-' + getID()).mouseleave(function () {
           $("." + getID()).addClass("not-visible");
         })
-        $('.cart' + getID()).on("click", function () {
-          CartManagementService.addToCart(products.getProductById(getID()), 1, AccountManagementService.getCurrentUser()!);
+        $('.cart' + getID()).on("click",  () => {
+          CartManagementService.addToCart(products.getProductById(getID()), 1, CookieManagementService.getCookie("username"));
         })
         $('.remove' + getID()).on("click", function () {
           console.log("Clicked on remove " + getID());

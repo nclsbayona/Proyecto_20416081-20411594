@@ -14,7 +14,7 @@ export class BillsComponent implements OnInit {
     return this.bill_management.getAllBills();
   }
 
-  getUserBills():Bill[]{
+  getUserBills(){
     return this.bill_management.getUserBills();
   }
 

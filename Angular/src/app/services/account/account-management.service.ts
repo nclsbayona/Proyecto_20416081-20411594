@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
@@ -9,6 +9,7 @@ declare let $: any
 @Injectable({
   providedIn: 'root'
 })
+
 export class AccountManagementService {
   static users: User[] = [];
   static base_url: string = "";
@@ -21,53 +22,24 @@ export class AccountManagementService {
     this.http.get(AccountManagementService.base_url + "get/all").pipe(map(Configure.extractData), catchError(Configure.handleError)).subscribe(data => {
       for (let user of data) {
         if (user.admin)
-        AccountManagementService.users.push(new Admin(user.email, user.password));
+          AccountManagementService.users.push(new Admin(user.email, user.password));
         else
-        AccountManagementService.users.push(new User(user.email, user.password));
+          AccountManagementService.users.push(new User(user.email, user.password));
       }
     }
     );
   }
 
-  static getCurrentUser(): User | null {
-    return AccountManagementService.findUser(CookieManagementService.getCookie("username"));
-  }
-
-  static orderUsers(): void {
-    AccountManagementService.users.sort((a, b) => a.strcmp(b));
-  }
-
-  checkPasswordsSame(password1: String, password2: String): boolean {
-    if (password1 == password2)
-      return true;
-    else
-      return false;
-  }
-
-  private static  findUser(email: String): User | null {
-    this.orderUsers()
-    let u: User | null = null;
-    let start: number = 0;
-    let end: number = this.users.length - 1;
-    let mid: number;
-    let a: User | null;
-    while (start <= end && u == null) {
-      mid=Math.floor((start + end) / 2);
-      a = AccountManagementService.users[mid];
-      if (a.email == email)
-        u = a;
-      else if (a.email < email)
-        start = mid + 1;
-      else
-        end = mid -1;
+  async login(email_info: String, password_info: String): Promise<User | null> {
+    let response = this.http.post(`${Configure.getIpPeticiones()}`.replace("/api/","/login"), {email:email_info,password:password_info},{ headers: new HttpHeaders({ 'Content-Type': 'application/json',"Accept":'application/json' }) }).pipe(map(Configure.extractData), catchError(Configure.handleError)).subscribe(data => data.authorization);
+    let u: User | null=null;
+    if (response!=null) {
+      u = this.findUser(email_info);
+      CookieManagementService.createCookie("username", email_info);
+      CookieManagementService.createCookie("admin", (u instanceof Admin) ? "true" : "");
     }
-    return u;
-  }
-
-  static login(email: String, password: String): User | null {
-    let u: User | null = this.findUser(email);
     let but = $(".btn");
-    if (u?.password != password)
+    if (u?.password != password_info)
       u = null;
     if (u != null) {
       but.removeClass("btn-danger");
@@ -77,24 +49,33 @@ export class AccountManagementService {
       but.removeClass("btn-success");
       but.addClass("btn-danger");
     }
-    if (u!=null){
+    if (u != null) {
       NavbarComponent.changeUser(u);
       $("#bills").removeClass("disabled");
       $("#cart").removeClass("disabled");
     }
     return u;
   }
+  findUser(email: String): User | null {
+    if (AccountManagementService.users.length == 0)
+      this.getUsers();
+    for (let u of AccountManagementService.users) {
+      if (u.email == email)
+        return u;
+    }
+    return null;
+  }
 
-  addUser(userData : any) {
+  addUser(userData: any) {
     this.addNewUser(userData);
   }
 
-  addNewUser(userData : any){
+  addNewUser(userData: any) {
     return this.http.post(
       `${Configure.getIpPeticiones()}accounts/add`, userData).pipe(
-          map(Configure.extractData),
-          catchError(Configure.handleError)
-    );
+        map(Configure.extractData),
+        catchError(Configure.handleError)
+      );
   }
 
 }

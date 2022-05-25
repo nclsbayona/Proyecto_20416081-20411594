@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.javeriana.proyecto2_web.annotations.IsAdmin;
-import co.edu.javeriana.proyecto2_web.annotations.IsCustomer;
 import co.edu.javeriana.proyecto2_web.entities.User;
 import co.edu.javeriana.proyecto2_web.entities.dtos.UserDTO;
 import co.edu.javeriana.proyecto2_web.exceptions.UserExistsException;
@@ -24,7 +22,6 @@ public class AccountsController {
     @Autowired
     AccountsService userRepository;
 
-    @IsAdmin
     @GetMapping("/get/all")
     public ArrayList<UserDTO> getAll() {
         ArrayList<UserDTO> arr=new ArrayList<UserDTO>();
@@ -33,9 +30,7 @@ public class AccountsController {
         }
         return arr;
     }
-
-    @IsAdmin
-    @IsCustomer
+    
     @GetMapping("/get")
     public UserDTO getUser(@RequestParam(required = false, name = "email") String username,
             @RequestParam(required = false, name = "id") Long id) {

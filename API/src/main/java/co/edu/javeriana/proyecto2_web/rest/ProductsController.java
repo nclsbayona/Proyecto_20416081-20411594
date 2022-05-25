@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.javeriana.proyecto2_web.annotations.IsAdmin;
-import co.edu.javeriana.proyecto2_web.annotations.IsCustomer;
 import co.edu.javeriana.proyecto2_web.entities.Product;
 import co.edu.javeriana.proyecto2_web.entities.dtos.ProductDTO;
 import co.edu.javeriana.proyecto2_web.exceptions.GeneralException;
@@ -33,9 +32,7 @@ public class ProductsController {
     public ArrayList<ProductDTO> getAll() {
         return new ArrayList<ProductDTO>(productsService.getAll().stream().map(ProductDTO::new).collect(Collectors.toList()));
     }
-
-    @IsAdmin
-    @IsCustomer
+    
     @GetMapping("/get")
     public ArrayList<ProductDTO> getProduct(@RequestParam(required = false, name = "id") Long id,
             @RequestParam(required = false, name = "name") String name) {

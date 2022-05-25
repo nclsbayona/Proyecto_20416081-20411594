@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../../models/product/product.model';
 import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Configure } from '../utils/config';
-import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class ProductsService {
-
-  static products: Product[] = [];
-  static base_url: string = "";
-
   constructor(private http: HttpClient) { 
   }
 
@@ -55,12 +49,13 @@ export class ProductsService {
       );
   }
 
-  getProductById(idS: string) {
+  async getProductById(idS: string) {
     let id = parseInt(idS);
-    return this.http.get(
-      `${Configure.getIpPeticiones()}products/get/${id}`).pipe(
+    let productGet= this.http.get(
+      `${Configure.getIpPeticiones()}products/get?id=${id}`).pipe(
           map(Configure.extractData),
           catchError(Configure.handleError),
       );
+    console.log(await productGet);
   }
 }

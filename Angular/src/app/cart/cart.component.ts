@@ -17,6 +17,9 @@ export class CartComponent implements OnInit {
 
   cart: Cart | null = null;
   idSelectedProduct: string = "";
+  ngOnInit(): void {
+  }
+  /*
   selectedProduct: Product = CartComponent.getProductById(this.idSelectedProduct);
 
   productData = {
@@ -28,8 +31,7 @@ export class CartComponent implements OnInit {
     UrlImg: this.selectedProduct.imageUrl
   }
 
-  ngOnInit(): void {
-  }
+  
 
   getCartElements(): Bill_Element[] {
     this.updateCart();
@@ -142,7 +144,7 @@ export class CartComponent implements OnInit {
     console.log("selected Product", this.selectedProduct)
     CartComponent.remove(this.idSelectedProduct)
     this.Create()
-  }
+  } */
 
 
 

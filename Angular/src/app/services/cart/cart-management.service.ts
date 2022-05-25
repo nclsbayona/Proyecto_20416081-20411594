@@ -11,9 +11,9 @@ import { Configure } from '../utils/config';
 @Injectable({providedIn: 'root'})
 export class CartManagementService {
 
-  static addToCart(product: any, amount: number, user: User) {
-    let cart: Cart = CartManagementService.getSpecificUserCart(user);
-    cart.addElement(product, amount)
+  static addToCart(product: any, amount: number, user: String) {
+    /* let cart: Cart = CartManagementService.getSpecificUserCart(user);
+    cart.addElement(product, amount) */
   }
 
   static carts: Cart[] = [];
@@ -80,14 +80,14 @@ export class CartManagementService {
     return cart;
   }
 
-  static getSpecificUserCart(user: User): Cart {
-    let cart: Cart | null = this.getCartByOwner(user);
+  static getSpecificUserCart(user: String): void {
+    /* let cart: Cart | null = this.getCartByOwner(user);
     if (CookieManagementService.getCookie("user") != null) {
       if (cart==null){
         cart = new Cart(user);
         CartManagementService.carts.push(cart);
       }
     }
-    return cart!;
+    return cart!; */
   }
 }

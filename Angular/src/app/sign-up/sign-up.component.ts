@@ -22,12 +22,12 @@ export class SignUpComponent implements OnInit {
       email: $("#exampleInputEmail1").val(),
       password: this.password1!
     }
-    if (this.accounts.checkPasswordsSame(this.password1!, this.password2!)) {
+    /* if (this.accounts.checkPasswordsSame(this.password1!, this.password2!)) {
       this.accounts.addUser(userData);
       //   console.log(this.account_service.login(email, this.password1!));
       // else
       //   console.log("User already exists");
-    }
+    } */
   }
 
   ngOnInit(): void {

@@ -14,17 +14,16 @@ export class CartElementComponent implements OnInit {
   element: Bill_Element = Bill_Element.Empty();
 
 
+  ngOnInit(): void {
+  }
   removeFromCart(): void {
-    CartManagementService.removeElementFromUserCart(AccountManagementService.getCurrentUser()!, this.element.product, 1);
+    //CartManagementService.removeElementFromUserCart(this.accounts.getCurrentUser()!, this.element.product, 1);
   }
 
   addToCart(): void {
-    CartManagementService.addToCart(this.element.product, 1, AccountManagementService.getCurrentUser()!);
+    //CartManagementService.addToCart(this.element.product, 1, AccountManagementService.getCurrentUser()!);
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor(private accounts: AccountManagementService) {}
 
 }

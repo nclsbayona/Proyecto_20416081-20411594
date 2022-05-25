@@ -42,15 +42,15 @@ export class BillManagementService {
     return BillManagementService.bills;
   }
 
-  static getUserBills(): Bill[] {
-    let user = AccountManagementService.getCurrentUser();
+  static getUserBills() {
+   /*  let user = AccountManagementService.getCurrentUser();
     let bills: Bill[] = [];
     for (let i = 0; i < BillManagementService.bills.length; i++) {
       let bill = BillManagementService.bills[i];
       if (bill.cart.owner.email == user!.email)
         bills.push(bill);
     }
-    return bills;
+    return bills; */
   }
 
   static bills: Bill[] = [];
