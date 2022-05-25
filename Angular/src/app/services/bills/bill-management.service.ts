@@ -33,9 +33,12 @@ export class BillManagementService {
       return BillManagementService.bills.length + 1;
   }
 
-  static addBill(cart: Cart, user: User): void {
-      let bill = new Bill(cart,user);
-      BillManagementService.bills.push(bill);
+  addBill(cart: Cart, user: User) {
+    return this.http.post(
+      `${Configure.getIpPeticiones()}/bills/create`, cart ).pipe(
+          map(Configure.extractData),
+          catchError(Configure.handleError)
+      );
   }
 
   static getAllBills(): Bill[] {

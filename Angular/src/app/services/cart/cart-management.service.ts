@@ -11,9 +11,12 @@ import { Configure } from '../utils/config';
 @Injectable({providedIn: 'root'})
 export class CartManagementService {
 
-  static addToCart(product: any, amount: number, user: String) {
-    /* let cart: Cart = CartManagementService.getSpecificUserCart(user);
-    cart.addElement(product, amount) */
+  addToCart(product: any, amount: number, user: String) {
+    return this.http.post(
+      `${Configure.getIpPeticiones()}/cart/add`, product ).pipe(
+          map(Configure.extractData),
+          catchError(Configure.handleError)
+      );
   }
 
   static carts: Cart[] = [];
@@ -36,48 +39,44 @@ export class CartManagementService {
   }
 
   static removeElementFromUserCart(user: User, element: Product, amount: number): void {
-    let cart = this.getCartByOwner(user);
-    if (cart == null)
-      return;
-    cart.removeElement(element, amount);
+    //let cart = this.getCartByOwner(user);
+    // if (cart == null)
+    //   return;
+    // cart.removeElement(element, amount);
   }
 
   addCart(cart: Cart) {
     //CartManagementService.carts.push(cart);
     return this.http.post(
-      `${Configure.getIpPeticiones()}/cart/insert`, cart ).pipe(
+      `${Configure.getIpPeticiones()}/cart/create`, cart ).pipe(
           map(Configure.extractData),
           catchError(Configure.handleError)
       );
   }
 
-  private static removeCartByOwner(owner: User): void {
-    for (let i = 0; i < CartManagementService.carts.length; i++) {
-      let element = CartManagementService.carts[i];
-      if (element.owner.email == owner.email) {
-        CartManagementService.carts.splice(i, 1);
-      }
-    }
+  removeCartByOwner(owner: User) {
+    return this.http.post(
+      `${Configure.getIpPeticiones()}/cart/delete`, owner ).pipe(
+          map(Configure.extractData),
+          catchError(Configure.handleError)
+      );
   }
 
-  static payCart(user: User): void {
-    let cart = this.getCartByOwner(user);
-    if (cart == null)
-      return;
-    BillManagementService.addBill(cart,user);
-    this.removeCartByOwner(user);
+  payCart(user: User) {
+    return this.http.post(
+      `${Configure.getIpPeticiones()}/cart/pay`, user).pipe(
+          map(Configure.extractData),
+          catchError(Configure.handleError)
+      );
   }
 
-  private static getCartByOwner(owner: User): Cart | null {
-    let cart: Cart | null = null;
-    if (owner != null)
-      for (let i = 0; i < CartManagementService.carts.length; i++) {
-        let element = CartManagementService.carts[i];
-        if (element.owner.email == owner.email) {
-          cart = element;
-        }
-      }
-    return cart;
+  getCartByOwner(owner: User) {
+    return this.http.post(
+      `${Configure.getIpPeticiones()}/cart/get`, owner).pipe(
+          map(Configure.extractData),
+          catchError(Configure.handleError)
+      );
+    
   }
 
   static getSpecificUserCart(user: String): void {

@@ -17,17 +17,23 @@ export class SignUpComponent implements OnInit {
 
 
   login(): void {
-    let email: String = $("#exampleInputEmail1").val();
+    //let email: String = $("#exampleInputEmail1").val();
+    //let idn : number = this.accounts.countUsers;
     const userData ={
+      id: 100,
       email: $("#exampleInputEmail1").val(),
-      password: this.password1!
+      password: this.password1!,
+      bills: [],
+      rol :{id: 100, name :"USER"},
+      admin: false
     }
-    /* if (this.accounts.checkPasswordsSame(this.password1!, this.password2!)) {
+     if (this.accounts.checkPasswordsSame(this.password1!, this.password2!)) {
+       console.log("adding")
       this.accounts.addUser(userData);
       //   console.log(this.account_service.login(email, this.password1!));
       // else
       //   console.log("User already exists");
-    } */
+    } 
   }
 
   ngOnInit(): void {

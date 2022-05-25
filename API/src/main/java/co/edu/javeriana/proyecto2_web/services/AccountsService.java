@@ -28,9 +28,9 @@ public class AccountsService {
         return uRepository.findById(id).get();
     }
 
-    public User addUser(String email, String password) {
-        if (this.getUser(email) != null) 
+    public User addUser(User newUser) {
+        if (this.getUser(newUser.getEmail()) != null) 
             return null;
-        return uRepository.save(new User(email, password));
+        return uRepository.save(newUser);
     }
 }

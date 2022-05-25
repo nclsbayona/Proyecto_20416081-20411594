@@ -59,11 +59,12 @@ public class AccountsController {
 
     // La contra se pasa como una cadena de caracteres sin comillas ni nada
     @PostMapping("/add")
-    public UserDTO addUser(@RequestParam(required = true, name = "email") String username,
-            @RequestBody(required = true) String password) {
+    public UserDTO addUser(@RequestBody User newUser) {
+        String username = newUser.getEmail();
+        String password = newUser.getPassword();
         if (username != null && password != null) {
             try {
-                User u = userRepository.addUser(username, password);
+                User u = userRepository.addUser(newUser);
                 if (u != null)
                     return new UserDTO(u);
                 throw new UserExistsException(username);

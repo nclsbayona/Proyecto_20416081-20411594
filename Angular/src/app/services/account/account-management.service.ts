@@ -30,14 +30,28 @@ export class AccountManagementService {
     );
   }
 
+  countUsers(): number {
+    return AccountManagementService.users.length + 1;
+  }
+
+  checkPasswordsSame(password1: String, password2: String): boolean {
+    if (password1 == password2)
+      return true;
+    else
+      return false;
+  }
+
   async login(email_info: String, password_info: String): Promise<User | null> {
     let response = this.http.post(`${Configure.getIpPeticiones()}`.replace("/api/","/login"), {email:email_info,password:password_info},{ headers: new HttpHeaders({ 'Content-Type': 'application/json',"Accept":'application/json' }) }).pipe(map(Configure.extractData), catchError(Configure.handleError)).subscribe(data => data.authorization);
+    console.log(email_info);
+    console.log(password_info);
     let u: User | null=null;
     if (response!=null) {
       u = this.findUser(email_info);
       CookieManagementService.createCookie("username", email_info);
       CookieManagementService.createCookie("admin", (u instanceof Admin) ? "true" : "");
     }
+    console.log(u);
     let but = $(".btn");
     if (u?.password != password_info)
       u = null;
@@ -71,8 +85,10 @@ export class AccountManagementService {
   }
 
   addNewUser(userData: any) {
+    console.log("adding service")
+    console.log(userData)
     return this.http.post(
-      `${Configure.getIpPeticiones()}accounts/add`, userData).pipe(
+      `${Configure.getIpPeticiones()}accounts/add`, userData ).pipe(
         map(Configure.extractData),
         catchError(Configure.handleError)
       );
