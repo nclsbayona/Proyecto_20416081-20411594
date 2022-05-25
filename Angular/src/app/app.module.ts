@@ -2,7 +2,8 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from './JWT/auth-interceptor.service';
 import { HomeComponent } from './home/home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { ProductComponent } from './product/product.component';
@@ -17,6 +18,8 @@ import { CartElementComponent } from './cart-element/cart-element.component';
 import { BillElementComponent } from './bill-element/bill-element.component';
 import { BillSpecificComponent } from './bill-specific/bill-specific.component';
 import { Configure } from './services/utils/config';
+
+
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
@@ -54,7 +57,19 @@ export function initializeAppBackend() {
     BrowserModule,
     HttpClientModule
   ],
-  providers: [AuthGuard, Configure, { provide: APP_INITIALIZER, useFactory: initializeAppBackend, deps: [Configure], multi: true }],
+  providers: [
+    AuthGuard, 
+    Configure, { 
+      provide: APP_INITIALIZER, useFactory: initializeAppBackend, 
+      deps: [Configure], 
+      multi: true 
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   exports: []
 })

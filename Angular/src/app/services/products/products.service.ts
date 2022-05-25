@@ -15,7 +15,7 @@ export class ProductsService {
   }
 
   getProducts() {
-    return this.http.delete(`${Configure.getIpPeticiones()}products/get/all`).pipe(
+    return this.http.get(`${Configure.getIpPeticiones()}products/get/all`).pipe(
       map(Configure.extractData),
       catchError(Configure.handleError)
     );

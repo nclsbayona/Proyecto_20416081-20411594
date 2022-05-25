@@ -9,17 +9,24 @@ declare let $: any;
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  account_service = AccountManagementService;
+  //account_service = AccountManagementService;
   password1?: String;
   password2?: String;
 
+  constructor(private accounts: AccountManagementService) { }
+
+
   login(): void {
     let email: String = $("#exampleInputEmail1").val();
-    if (this.account_service.checkPasswordsSame(this.password1!, this.password2!)) {
-      if (this.account_service.addUser(email, this.password1!))
-        console.log(this.account_service.login(email, this.password1!));
-      else
-        console.log("User already exists");
+    const userData ={
+      email: $("#exampleInputEmail1").val(),
+      password: this.password1!
+    }
+    if (this.accounts.checkPasswordsSame(this.password1!, this.password2!)) {
+      this.accounts.addUser(userData);
+      //   console.log(this.account_service.login(email, this.password1!));
+      // else
+      //   console.log("User already exists");
     }
   }
 

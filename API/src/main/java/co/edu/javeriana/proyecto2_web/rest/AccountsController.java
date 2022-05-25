@@ -63,7 +63,6 @@ public class AccountsController {
     }
 
     // La contra se pasa como una cadena de caracteres sin comillas ni nada
-    @IsAdmin
     @PostMapping("/add")
     public UserDTO addUser(@RequestParam(required = true, name = "email") String username,
             @RequestBody(required = true) String password) {

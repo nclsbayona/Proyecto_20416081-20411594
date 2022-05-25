@@ -37,14 +37,14 @@ export class AccountManagementService {
     AccountManagementService.users.sort((a, b) => a.strcmp(b));
   }
 
-  static checkPasswordsSame(password1: String, password2: String): boolean {
+  checkPasswordsSame(password1: String, password2: String): boolean {
     if (password1 == password2)
       return true;
     else
       return false;
   }
 
-  private static findUser(email: String): User | null {
+  private static  findUser(email: String): User | null {
     this.orderUsers()
     let u: User | null = null;
     let start: number = 0;
@@ -85,19 +85,16 @@ export class AccountManagementService {
     return u;
   }
 
-  static addUser(email: String, password: String): boolean {
-    return this.addNewUser(email, password, false);
+  addUser(userData : any) {
+    this.addNewUser(userData);
   }
 
-  private static addNewUser(email: String, password: String, admin: boolean): boolean {
-    if (!this.findUser(email)) {
-      if (admin)
-        AccountManagementService.users.push(new Admin(email, password));
-      else
-        AccountManagementService.users.push(new User(email, password));
-      this.orderUsers();
-      return true;
-    } else return false;
+  addNewUser(userData : any){
+    return this.http.post(
+      `${Configure.getIpPeticiones()}accounts/add`, userData).pipe(
+          map(Configure.extractData),
+          catchError(Configure.handleError)
+    );
   }
 
 }
